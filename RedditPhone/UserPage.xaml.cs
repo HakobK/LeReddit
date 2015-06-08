@@ -9,16 +9,23 @@ using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 using RedditPhone.Resources;
 using System.Threading.Tasks;
+using RedditSharpPCL;
 
 namespace RedditPhone
 {
     public partial class UserPage : PhoneApplicationPage
     {
         MainPage authentication = new MainPage();
+
+         public TextBlock[] Comments;
+        public int SubSubSize = 100;
+        public int SubSubIndex = 1;
+        public int yMargin = 0;
+
         public UserPage()
         {
             InitializeComponent();
-
+            Comments = new TextBlock[SubSubSize];
         }
 
         protected async override void OnNavigatedTo(NavigationEventArgs e)
@@ -37,7 +44,8 @@ namespace RedditPhone
       
             var text = await Task.Factory.StartNew(() => { return posts.Count().ToString(); });
             Posts.Text = text.ToString();
-          
+
+            await DoThings();
           
 
             //if (NavigationContext.QueryString.ContainsKey("key"))
@@ -66,6 +74,33 @@ namespace RedditPhone
             
         }
 
+        public async Task DoThings()
+        {
+            await Task.Factory.StartNew(() =>
+            {
+                IEnumerable<Comment> sub = authentication.authenticatedReddit.User.Comments;
+                foreach (Comment s in sub)
+                {
+                    Dispatcher.BeginInvoke(() =>
+                    {
+
+                        TextBlock txt = new TextBlock();
+
+                        ListBox1.Items.Add(s.Body);
+
+                        Comments[SubSubIndex] = txt;
+                        Comments[SubSubIndex].Margin = new Thickness(0, yMargin, 0, 0);
+                        CommentUser.Children.Add(Comments[SubSubIndex]);
+                        SubSubIndex++;
+                        yMargin = yMargin + 20;
+                    });
+                }
+                Dispatcher.BeginInvoke(() =>
+                {
+                });
+
+            });
+        }
 
        
         
