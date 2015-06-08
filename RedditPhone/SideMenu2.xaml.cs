@@ -19,7 +19,7 @@ namespace RedditPhone
         MainPage authentication = new MainPage();
         public int logCheck;
         public TextBlock[] SubscribedSubreddits;
-        public int SubSubSize = 25;
+        public int SubSubSize = 100;
         public int SubSubIndex = 1;
         public int yMargin = 0;
         public SideMenu2()

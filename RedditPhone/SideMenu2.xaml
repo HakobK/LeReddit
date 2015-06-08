@@ -36,6 +36,8 @@
         	<LineBreak/>
         	<Run/>
         </TextBlock>
-        <Grid x:Name="loggedSubSub" HorizontalAlignment="Left" Height="410" Margin="15,348,0,0" VerticalAlignment="Top" Width="435"/>
+        <ScrollViewer HorizontalAlignment="Left" Height="407" Margin="14,349,0,0" VerticalAlignment="Top" Width="433">
+        <Grid x:Name="loggedSubSub" HorizontalAlignment="Left" Height="1200" VerticalAlignment="Top" Width="435"/>
+        </ScrollViewer>
     </Grid>
 </phone:PhoneApplicationPage>
