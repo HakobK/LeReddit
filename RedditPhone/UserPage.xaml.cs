@@ -20,6 +20,11 @@ namespace RedditPhone
         public TextBlock[] Comments;
         public int CommentSize = 100;
         public int CommentIndex = 1;
+
+        public TextBlock[] Posts;
+        public int postSize = 100;
+        public int postIndex = 1;
+
         public int yMargin = 0;
 
         public UserPage()
@@ -43,26 +48,27 @@ namespace RedditPhone
             var posts = await Task.Factory.StartNew(() => { return authentication.authenticatedReddit.User.Posts; });
 
             var text = await Task.Factory.StartNew(() => { return posts.Count().ToString(); });
-            Posts.Text = text.ToString();
+            PostsCount.Text = text.ToString();
 
             var Comments = await Task.Factory.StartNew(() => { return authentication.authenticatedReddit.User.Comments; });
             var comment = await Task.Factory.StartNew(() => { return Comments.Count().ToString(); });
             CountComment.Text = comment.ToString();
 
 
-            await DoThings();
+            await getComments();
+            await getPosts();
 
 
 
 
         }
 
-        public async Task DoThings()
+        public async Task getComments()
         {
             await Task.Factory.StartNew(() =>
             {
-                IEnumerable<Comment> sub = authentication.authenticatedReddit.User.Comments;
-                foreach (Comment s in sub.Take(3))
+                IEnumerable<Comment> comment  = authentication.authenticatedReddit.User.Comments;
+                foreach (Comment s in comment.Take(3))
                 {
                     Dispatcher.BeginInvoke(() =>
                     {
@@ -87,7 +93,34 @@ namespace RedditPhone
         }
 
 
+        public async Task getPosts()
+        {
+            await Task.Factory.StartNew(() =>
+            {
+                IEnumerable<Post> post = authentication.authenticatedReddit.User.Posts;
+                foreach (Post s in post.Take(3))
+                {
+                    Dispatcher.BeginInvoke(() =>
+                    {
 
+
+                        TextBlock txt = new TextBlock();
+                        ListBox2.Items.Add(s.Title);
+                        ListBox2.Items.Add(" ");
+
+                        Comments[postIndex] = txt;
+                        Comments[postIndex].Margin = new Thickness(0, yMargin, 0, 0);
+                        CommentUser.Children.Add(Comments[postIndex]);
+                        postIndex++;
+                        yMargin = yMargin + 20;
+                    });
+                }
+                Dispatcher.BeginInvoke(() =>
+                {
+                });
+
+            });
+        }
 
     }
 }
