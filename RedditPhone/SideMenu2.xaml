@@ -24,6 +24,7 @@
         </TextBlock>
         <Button x:Name="UserProfile"  Content="User Profile" HorizontalAlignment="Left" VerticalAlignment="Top" Click="Button_Click_1" Margin="0,73,0,0" Visibility="Collapsed"/>
         <Button x:Name="LogIn" Content="Log In" HorizontalAlignment="Left" VerticalAlignment="Top" Click="Button_Click_2" Margin="0,73,0,0" Visibility="Collapsed"/>
+        <Button x:Name="LogOut" Content="Log Out" HorizontalAlignment="Left" Margin="313,4,0,0" VerticalAlignment="Top" Width="147" Click="LogOut_Click" Visibility="Collapsed"/>
         <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Height="52" Width="308" FontSize="40" Margin="10,16,0,0">
         	<Run Text="le"/>
         	<Run Text=" "/>
@@ -37,7 +38,7 @@
         	<Run/>
         </TextBlock>
         <ScrollViewer HorizontalAlignment="Left" Height="407" Margin="14,349,0,0" VerticalAlignment="Top" Width="433">
-        <Grid x:Name="loggedSubSub" HorizontalAlignment="Left" Height="1200" VerticalAlignment="Top" Width="435"/>
+            <Grid x:Name="loggedSubSub" HorizontalAlignment="Left" Height="1200" VerticalAlignment="Top" Width="435"/>
         </ScrollViewer>
     </Grid>
 </phone:PhoneApplicationPage>
