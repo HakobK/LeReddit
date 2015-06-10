@@ -230,7 +230,7 @@ namespace RedditPhone
         public async void loadMoreItems(IEnumerable<Post> posts, int x)
        {
            int initialCounter = 0;
-
+           Dispatcher.BeginInvoke(() => { ContentPanel.Height = Height + 1000; });
            await Task.Factory.StartNew(() =>
            {
                foreach (Post post in posts)
@@ -313,8 +313,7 @@ namespace RedditPhone
                        });
 
                        objectIndex++;
-                       Dispatcher.BeginInvoke(() => { ContentPanel.Height = Height + 1000; });
-                       Dispatcher.BeginInvoke(() => { MessageBox.Show(post.Id.ToString()); });
+                       
                        
                    }
                }
