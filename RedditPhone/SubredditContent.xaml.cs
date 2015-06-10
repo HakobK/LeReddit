@@ -325,7 +325,7 @@ namespace RedditPhone
 
        }
 
-        public async void fillPageWithPosts(IEnumerable<Post> posts)
+        public async void fillPageWithPosts(IEnumerable<Post> pagePosts)
        {
            await Task.Factory.StartNew(() =>
            {
