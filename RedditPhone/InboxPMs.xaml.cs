@@ -44,6 +44,8 @@ namespace RedditPhone
             var privateMessage = await Task.Factory.StartNew(() => { return privateMessages.Count().ToString(); });
             countMessages.Text = privateMessage.ToString();
 
+            await getInbox();
+
         }
 
         public async Task getInbox()    
