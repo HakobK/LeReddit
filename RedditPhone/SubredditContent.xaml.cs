@@ -69,6 +69,10 @@ namespace RedditPhone
                 {
                     subredditStatus = "frontpageloggedin";
                     isLoggedIn = 1;
+                    await getContentFrontPageLoggedIn(authentication.authenticatedReddit);
+                }
+                else
+                {
                     await getContentFrontPage();
                 }
             }
@@ -85,6 +89,8 @@ namespace RedditPhone
             }
                 );
         }
+
+
 
        public async void getContentWithSubr(string subR)
        {
@@ -129,13 +135,8 @@ namespace RedditPhone
 
        }
 
-       public async Task getContentFrontPage()
+       public async Task getContentFrontPageLoggedIn(Reddit reddit)
        {
-
-           Reddit reddit = new Reddit();
-           reddit = authentication.authenticatedReddit;
-          // await Task.Factory.StartNew(() => { login(user, pass); }); 
-           
            var sReddit = await Task.Factory.StartNew(() => { return reddit.FrontPage; });
            var posts = await Task.Factory.StartNew(() => { return sReddit.Posts.Take(11); });
            var text = await Task.Factory.StartNew(() => { return posts.Count().ToString(); });
@@ -151,6 +152,28 @@ namespace RedditPhone
            catch (ArgumentNullException)
            {
                
+           }
+
+       }
+
+       public async Task getContentFrontPage()
+       {
+           Reddit reddit = new Reddit();
+           var sReddit = await Task.Factory.StartNew(() => { return reddit.FrontPage; });
+           var posts = await Task.Factory.StartNew(() => { return sReddit.Posts.Take(11); });
+           var text = await Task.Factory.StartNew(() => { return posts.Count().ToString(); });
+           rName.Text = sReddit.Title;
+           fillPageWithPosts(posts);
+
+           try
+           {
+               Uri url = new Uri(sReddit.HeaderImage);
+               headerImage.Opacity = 0.45;
+               headerImage.Source = new BitmapImage(url);
+           }
+           catch (ArgumentNullException)
+           {
+
            }
 
        }
