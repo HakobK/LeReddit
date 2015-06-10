@@ -18,8 +18,12 @@
         <Button Content="+" HorizontalAlignment="Left" Margin="303,10,0,0" VerticalAlignment="Top" Width="75"/>
         <Button Content="=" HorizontalAlignment="Left" Margin="402,10,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click"/>
         <TextBlock x:Name="countMessages" HorizontalAlignment="Left" Margin="43,109,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Height="224" Width="386"/>
-        <Grid x:Name="MessageUser" HorizontalAlignment="Left" Height="100" Margin="203,233,0,0" VerticalAlignment="Top" Width="100"/>
-        <ListBox x:Name="lBox" Height="189" FontSize="18" FontStyle="Italic" Margin="43,164,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" />
+        <Grid x:Name="MessageUser" HorizontalAlignment="Left" Height="100" Margin="203,233,0,0" VerticalAlignment="Top" Width="100">
+        </Grid>
+        <ScrollViewer HorizontalAlignment="Left" Height="100" VerticalAlignment="Top" Width="100" Margin="43,142,0,0">
+        <ListBox x:Name="lBox" Height="189" FontSize="18" FontStyle="Italic" VerticalAlignment="Top" HorizontalAlignment="Left" />
+        </ScrollViewer>
+        <TextBlock x:Name="cncr" HorizontalAlignment="Left" Margin="148,220,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top"/>
     </Grid>
 
     <!--LayoutRoot is the root grid where all page content is placed-->
