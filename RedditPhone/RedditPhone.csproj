@@ -96,6 +96,9 @@
     <Compile Include="PostContent.xaml.cs">
       <DependentUpon>PostContent.xaml</DependentUpon>
     </Compile>
+    <Compile Include="InboxPMs.xaml.cs">
+      <DependentUpon>InboxPMs.xaml</DependentUpon>
+    </Compile>
     <Compile Include="SideMenu.xaml.cs">
       <DependentUpon>SideMenu.xaml</DependentUpon>
     </Compile>
@@ -125,6 +128,10 @@
       <Generator>MSBuild:Compile</Generator>
     </ApplicationDefinition>
     <Page Include="PostContent.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="InboxPMs.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

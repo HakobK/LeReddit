@@ -22,29 +22,48 @@
 
         <!--TitlePanel contains the name of the application and page title-->
         <StackPanel Grid.Row="0" Margin="12,17,0,28">
-            <TextBlock Text="User Profile" Style="{StaticResource PhoneTextNormalStyle}"/>
+            <TextBlock Text="Le User Profile" Style="{StaticResource PhoneTextNormalStyle}"/>
             <TextBlock x:Name="txtUserPage" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}" FontSize="40"/>
         </StackPanel>
 
         <!--ContentPanel - place additional content here-->
         <Grid x:Name="ContentPanel" Margin="14,96,10,-10" Grid.RowSpan="2">
-            <TextBlock x:Name="goldText_Copy" HorizontalAlignment="Left" Margin="10,0,0,0" TextWrapping="Wrap" Text="Current Karma" VerticalAlignment="Top"/>
-            <TextBlock x:Name="amountKarma" HorizontalAlignment="Left" Margin="240,0,0,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
-            <TextBlock x:Name="created" HorizontalAlignment="Left" Margin="10,32,0,0" TextWrapping="Wrap" Text="Account created" VerticalAlignment="Top"/>
-            <TextBlock x:Name="created1" HorizontalAlignment="Left" Margin="240,32,0,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
-            <TextBlock x:Name="Amount_Posts" HorizontalAlignment="Left" Margin="10,64,0,0" TextWrapping="Wrap" Text="Amount Posts" VerticalAlignment="Top"/>
-            <TextBlock x:Name="Posts" HorizontalAlignment="Left" Margin="240,64,0,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
-            <Grid HorizontalAlignment="Left" Height="176" VerticalAlignment="Top" Width="194" Margin="168,182,0,0">
-                <Grid x:Name="CommentUser" HorizontalAlignment="Left" Margin="-151,-39,-81,34" Width="426"/>
-                <ScrollViewer VerticalScrollBarVisibility="Auto" MinHeight="200" HorizontalScrollBarVisibility="Auto" Margin="-151,-21,10,34"   >
+            <TextBlock x:Name="goldText_Copy" HorizontalAlignment="Left" Margin="10,0,0,0" TextWrapping="Wrap" Text="Current Linkkarma" VerticalAlignment="Top"/>
+            <TextBlock x:Name="linkKarma" HorizontalAlignment="Left" Margin="240,0,0,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
+            <TextBlock x:Name="created" HorizontalAlignment="Left" Margin="10,64,0,0" TextWrapping="Wrap" Text="Account created" VerticalAlignment="Top"/>
+            <TextBlock x:Name="created1" HorizontalAlignment="Left" Margin="240,64,0,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
+            <TextBlock x:Name="Amount_Posts" HorizontalAlignment="Left" Margin="10,96,0,0" TextWrapping="Wrap" Text="Amount Posts" VerticalAlignment="Top"/>
+            <TextBlock x:Name="PostsCount" HorizontalAlignment="Left" Margin="240,101,0,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
+            <Button x:Name="PMInbox"  Content="PM Inbox" HorizontalAlignment="Left" Margin="277,-13,0,0" VerticalAlignment="Top" Click="Button_Click_1"/>
+            <Grid HorizontalAlignment="Left" Height="176" VerticalAlignment="Top" Width="194" Margin="168,244,0,0">
+                <Grid x:Name="CommentUser" HorizontalAlignment="Left" Margin="-151,-30,-81,25" Width="426"/>
+                <ScrollViewer VerticalScrollBarVisibility="Auto" MinHeight="200" HorizontalScrollBarVisibility="Auto" Margin="-151,-49,10,25"   >
                     <ListBox x:Name="ListBox1" Height="189" FontSize="18" FontStyle="Italic" VerticalAlignment="Top" HorizontalAlignment="Left" />
 
 
                 </ScrollViewer>
             </Grid>
-            <TextBlock x:Name="Amount_Posts_Copy" HorizontalAlignment="Left" Margin="10,96,0,0" TextWrapping="Wrap" Text="Amount Comments" VerticalAlignment="Top"/>
-            <TextBlock x:Name="CountComment" HorizontalAlignment="Left" Margin="240,96,0,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
-            <TextBlock x:Name="Amount_Posts_Copy1" HorizontalAlignment="Left" Margin="10,128,0,0" TextWrapping="Wrap" Text="Last 3 comments" VerticalAlignment="Top"/>
+                   
+            
+            <Grid HorizontalAlignment="Left" Height="176" VerticalAlignment="Top" Width="194" Margin="168,496,0,0">
+            <Grid x:Name="PostUser" HorizontalAlignment="Left" Margin="-151,-15,-81,10" Width="426">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="109*"/>
+                        <ColumnDefinition Width="318*"/>
+                    </Grid.ColumnDefinitions>
+                </Grid>
+                <ScrollViewer VerticalScrollBarVisibility="Auto" MinHeight="200" HorizontalScrollBarVisibility="Auto" Margin="-151,-34,10,10"   >
+                <ListBox x:Name="ListBox2" Height="189" FontSize="18" FontStyle="Italic" VerticalAlignment="Top" HorizontalAlignment="Left" />
+
+
+            </ScrollViewer>
+        </Grid>
+        <TextBlock x:Name="Amount_Posts_Copy" HorizontalAlignment="Left" Margin="10,128,0,0" TextWrapping="Wrap" Text="Amount Comments" VerticalAlignment="Top"/>
+            <TextBlock x:Name="CountComment" HorizontalAlignment="Left" Margin="240,128,0,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
+            <TextBlock x:Name="Amount_Posts_Copy1" HorizontalAlignment="Left" Margin="10,160,0,0" TextWrapping="Wrap" Text="Last 3 comments" VerticalAlignment="Top"/>
+            <TextBlock x:Name="Amount_Posts_Copy2" HorizontalAlignment="Left" Margin="10,435,0,0" TextWrapping="Wrap" Text="Last 3 posts" VerticalAlignment="Top"/>
+            <TextBlock x:Name="goldText_Copy1" HorizontalAlignment="Left" Margin="10,32,0,0" TextWrapping="Wrap" Text="Current Commentkarma" VerticalAlignment="Top"/>
+            <TextBlock x:Name="commentKarma" HorizontalAlignment="Left" Margin="240,32,0,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
 
         </Grid>
     </Grid>
