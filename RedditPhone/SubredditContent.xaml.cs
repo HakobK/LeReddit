@@ -24,7 +24,7 @@ namespace RedditPhone
         MainPage authentication = new MainPage();
 
         public int verticalMargin = 25;
-        public int objectSize = 25;
+        public int objectSize = 55;
         public int objectIndex = 0;
         public string username;
         public string password;
@@ -38,6 +38,10 @@ namespace RedditPhone
         public Comment[] postListComments;
         public string subredditStatus;
         public int isLoggedIn;
+        public int postCount = 0;
+        public IEnumerable<Post> pagePosts;
+        public Uri currentPostUri;
+        public Post testPost;
 
         public SubredditContent()
         {
@@ -160,10 +164,10 @@ namespace RedditPhone
        {
            Reddit reddit = new Reddit();
            var sReddit = await Task.Factory.StartNew(() => { return reddit.FrontPage; });
-           var posts = await Task.Factory.StartNew(() => { return sReddit.Posts.Take(11); });
-           var text = await Task.Factory.StartNew(() => { return posts.Count().ToString(); });
+           pagePosts = await Task.Factory.StartNew(() => { return sReddit.Posts.Take(30); });
+           var text = await Task.Factory.StartNew(() => { return pagePosts.Count().ToString(); });
            rName.Text = sReddit.Title;
-           fillPageWithPosts(posts);
+           fillPageWithPosts(pagePosts);
 
            try
            {
@@ -208,85 +212,205 @@ namespace RedditPhone
 
        }
 
-        public async void fillPageWithPosts(IEnumerable<Post> posts)
+        public async Task getThumbUri(Post post)
        {
+           await Task.Factory.StartNew(() =>
+               {
+                   if (post.Thumbnail.ToString() == "self")
+                   {
+                       currentPostUri =  new Uri(thumbDefault);
+                   }
+                   else
+                   {
+                       currentPostUri =  post.Thumbnail;
+                   }
+
+               });
+
+       }
+
+        public async void loadMoreItems(IEnumerable<Post> posts, int x)
+       {
+           int initialCounter = 0;
+
            await Task.Factory.StartNew(() =>
            {
                foreach (Post post in posts)
                {
-                   string postTitle = post.Title;
-                   Dispatcher.BeginInvoke(() =>
+                   if (postCount > initialCounter)
                    {
-                       thumb = post.Thumbnail.ToString();
-                       var img = new Image();
-                       img.Height = 80;
-                       img.Width = 80;
-                       img.Margin = new Thickness(10, 0, 0, 0);
-                       thumbnailCollection[objectIndex] = img;
-
-                       if (thumb != ifNotSet)
+                       initialCounter++;
+                   }
+                   else
+                   {
+                       string postTitle = post.Title;
+                       Dispatcher.BeginInvoke(() =>
                        {
-                           try
+                           thumb = post.Thumbnail.ToString();
+                           var img = new Image();
+                           img.Height = 80;
+                           img.Width = 80;
+                           img.Margin = new Thickness(10, 0, 0, 0);
+                           thumbnailCollection[objectIndex] = img;
+
+                           if (post.Thumbnail.ToString() != "self")
                            {
-                               Uri url3 = new Uri(thumb);
-                               img.Source = new BitmapImage(url3);
-                               img.HorizontalAlignment = HorizontalAlignment.Left;
-                               //img.Margin = new Thickness(0, 0, 0, 0);
+                               try
+                               {
+                                   Uri url3 = new Uri(thumb);
+                                   img.Source = new BitmapImage(url3);
+                                   img.HorizontalAlignment = HorizontalAlignment.Left;
+                                   //img.Margin = new Thickness(0, 0, 0, 0);
+                               }
+
+                               catch (Exception)
+                               {
+                                   Uri url3 = new Uri(thumbDefault);
+                                   img.Source = new BitmapImage(url3);
+                                   img.HorizontalAlignment = HorizontalAlignment.Left;
+                                   img.VerticalAlignment = VerticalAlignment.Bottom;
+                                   img.MaxHeight = 70;
+                                   img.MaxWidth = 100;
+                                   // img.Margin = new Thickness(0, 0, 0, 0);
+                               }
                            }
 
-                           catch (Exception)
+                           else
                            {
                                Uri url3 = new Uri(thumbDefault);
                                img.Source = new BitmapImage(url3);
                                img.HorizontalAlignment = HorizontalAlignment.Left;
-                               img.VerticalAlignment = VerticalAlignment.Bottom;
-                               img.MaxHeight = 70;
-                               img.MaxWidth = 100;
                                // img.Margin = new Thickness(0, 0, 0, 0);
                            }
-                       }
+                           TextBlock txt = new TextBlock();
+                           tBlockCollection[objectIndex] = txt;
+                           txt.Text = postTitle;
+                           txt.FontSize = 14;
 
-                       else
-                       {
-                           Uri url3 = new Uri(thumbDefault);
-                           img.Source = new BitmapImage(url3);
-                           img.HorizontalAlignment = HorizontalAlignment.Left;
-                           // img.Margin = new Thickness(0, 0, 0, 0);
-                       }
-                       TextBlock txt = new TextBlock();
-                       tBlockCollection[objectIndex] = txt;
-                       txt.Text = postTitle;
-                       txt.FontSize = 14;
+                           txt.Margin = new Thickness(95, 0, 0, 0);
+                           txt.TextWrapping = TextWrapping.Wrap;
+                           //  txt.Margin = new Thickness(60,0,0,0);
 
-                       txt.Margin = new Thickness(95, 0, 0, 0);
-                       txt.TextWrapping = TextWrapping.Wrap;
-                       //  txt.Margin = new Thickness(60,0,0,0);
+                           var panel1 = new Grid();
+                           //Dispatcher.BeginInvoke(() => { postListComments = post.Comments; });
+                           panel1.Tap += new EventHandler<GestureEventArgs>(print);
+                           panel1.MaxHeight = 70;
+                           panel1.Height = 80;
+                           panel1.Width = 465;
+                           panel1.MaxWidth = 465;
+                           panel1.VerticalAlignment = VerticalAlignment.Top;
+                           panel1.Margin = new Thickness(0, verticalMargin, 0, 0);
+                           SolidColorBrush myBrush = new SolidColorBrush(Color.FromArgb(255, 35, 35, 35));
+                           panel1.Background = myBrush;
 
-                       var panel1 = new Grid();
-                       //Dispatcher.BeginInvoke(() => { postListComments = post.Comments; });
-                       panel1.Tap += new EventHandler<GestureEventArgs>(print);
-                       panel1.MaxHeight = 70;
-                       panel1.Height = 80;
-                       panel1.Width = 465;
-                       panel1.MaxWidth = 465;
-                       panel1.VerticalAlignment = VerticalAlignment.Top;
-                       panel1.Margin = new Thickness(0, verticalMargin, 0, 0);
-                       SolidColorBrush myBrush = new SolidColorBrush(Color.FromArgb(255, 35, 35, 35));
-                       panel1.Background = myBrush;
+                           gridCollection[objectIndex] = panel1;
+                           panel1.Children.Add(txt);
+                           panel1.Children.Add(img);
 
-                       gridCollection[objectIndex] = panel1;
-                       panel1.Children.Add(txt);
-                       panel1.Children.Add(img);
+                           ContentPanel.Children.Add(panel1);
 
-                       ContentPanel.Children.Add(panel1);
+                           verticalMargin = verticalMargin + 90;
 
-                       verticalMargin = verticalMargin + 90;
+                       });
 
-                   });
-
-                   objectIndex++;
-
+                       objectIndex++;
+                       Dispatcher.BeginInvoke(() => { ContentPanel.Height = Height + 1000; });
+                       
+                   }
                }
+
+               //!!!
+           });
+
+
+       }
+
+        public async void fillPageWithPosts(IEnumerable<Post> posts)
+       {
+           await Task.Factory.StartNew(() =>
+           {
+               foreach (Post post in pagePosts)
+               {
+                   if (postCount < 10)
+                   {
+                       postCount++;
+                       string postTitle = post.Title;
+                       testPost = post;
+                       postCount++;
+                       Dispatcher.BeginInvoke(() =>
+                       {
+                           thumb = post.Thumbnail.ToString();
+                           var img = new Image();
+                           img.Height = 80;
+                           img.Width = 80;
+                           img.Margin = new Thickness(10, 0, 0, 0);
+                           thumbnailCollection[objectIndex] = img;
+
+                           if (thumb != ifNotSet)
+                           {
+                               try
+                               {
+                                   Uri url3 = new Uri(thumb);
+                                   img.Source = new BitmapImage(url3);
+                                   img.HorizontalAlignment = HorizontalAlignment.Left;
+                                   //img.Margin = new Thickness(0, 0, 0, 0);
+                               }
+
+                               catch (Exception)
+                               {
+                                   Uri url3 = new Uri(thumbDefault);
+                                   img.Source = new BitmapImage(url3);
+                                   img.HorizontalAlignment = HorizontalAlignment.Left;
+                                   img.VerticalAlignment = VerticalAlignment.Bottom;
+                                   img.MaxHeight = 70;
+                                   img.MaxWidth = 100;
+                                   // img.Margin = new Thickness(0, 0, 0, 0);
+                               }
+                           }
+
+                           else
+                           {
+                               Uri url3 = new Uri(thumbDefault);
+                               img.Source = new BitmapImage(url3);
+                               img.HorizontalAlignment = HorizontalAlignment.Left;
+                               // img.Margin = new Thickness(0, 0, 0, 0);
+                           }
+                           TextBlock txt = new TextBlock();
+                           tBlockCollection[objectIndex] = txt;
+                           txt.Text = postTitle;
+                           txt.FontSize = 14;
+
+                           txt.Margin = new Thickness(95, 0, 0, 0);
+                           txt.TextWrapping = TextWrapping.Wrap;
+                           //  txt.Margin = new Thickness(60,0,0,0);
+
+                           var panel1 = new Grid();
+                           //Dispatcher.BeginInvoke(() => { postListComments = post.Comments; });
+                           panel1.Tap += new EventHandler<GestureEventArgs>(print);
+                           panel1.MaxHeight = 70;
+                           panel1.Height = 80;
+                           panel1.Width = 465;
+                           panel1.MaxWidth = 465;
+                           panel1.VerticalAlignment = VerticalAlignment.Top;
+                           panel1.Margin = new Thickness(0, verticalMargin, 0, 0);
+                           SolidColorBrush myBrush = new SolidColorBrush(Color.FromArgb(255, 35, 35, 35));
+                           panel1.Background = myBrush;
+
+                           gridCollection[objectIndex] = panel1;
+                           panel1.Children.Add(txt);
+                           panel1.Children.Add(img);
+
+                           ContentPanel.Children.Add(panel1);
+
+                           verticalMargin = verticalMargin + 90;
+
+                       });
+
+                       objectIndex++;
+
+                   }
+               }
+              
            });
        }
 
@@ -310,6 +434,11 @@ namespace RedditPhone
        private void StackPanel_Tap(object sender, GestureEventArgs e)
        {
            
+       }
+
+       private void Button_Click_1(object sender, RoutedEventArgs e)
+       {
+           loadMoreItems(pagePosts,postCount);
        }
     }
 }
