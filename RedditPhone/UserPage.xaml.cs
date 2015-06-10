@@ -17,6 +17,7 @@ namespace RedditPhone
     {
         MainPage authentication = new MainPage();
 
+       
         public TextBlock[] Comments;
         public int CommentSize = 100;
         public int CommentIndex = 1;
@@ -35,32 +36,41 @@ namespace RedditPhone
 
         protected async override void OnNavigatedTo(NavigationEventArgs e)
         {
+            await getstuff();
+            await loadPosts();
+            await loadComments();        
+            await getComments();
+            await getPosts();
+        }
 
+
+        public async Task loadPosts()
+        {
+            var posts = await Task.Factory.StartNew(() => { return authentication.authenticatedReddit.User.Posts; });
+            int text = await Task.Factory.StartNew(() => { return posts.Count(); });        
+            PostsCount.Text = text.ToString();
+        }
+
+        public async Task loadComments()
+        {
+            var Comments = await Task.Factory.StartNew(() => { return authentication.authenticatedReddit.User.Comments; });
+            int comment = await Task.Factory.StartNew(() => { return Comments.Count(); });
+            CountComment.Text = comment.ToString();
+        }
+
+        public async Task getstuff()
+        {
             var fullname = await Task.Factory.StartNew(() => { return authentication.authenticatedReddit.User.FullName; });
             txtUserPage.Text = fullname;
 
-            var karma = await Task.Factory.StartNew(() => { return authentication.authenticatedReddit.User.CommentKarma; });
-            amountKarma.Text = karma.ToString();
+            var CommentKarma = await Task.Factory.StartNew(() => { return authentication.authenticatedReddit.User.CommentKarma; });
+            commentKarma.Text = CommentKarma.ToString();
+
+            var LinkKarma = await Task.Factory.StartNew(() => { return authentication.authenticatedReddit.User.LinkKarma; });
+            linkKarma.Text = LinkKarma.ToString();
 
             var created = await Task.Factory.StartNew(() => { return authentication.authenticatedReddit.User.Created; });
             created1.Text = created.ToString();
-
-            var posts = await Task.Factory.StartNew(() => { return authentication.authenticatedReddit.User.Posts; });
-
-            var text = await Task.Factory.StartNew(() => { return posts.Count().ToString(); });
-            PostsCount.Text = text.ToString();
-
-            var Comments = await Task.Factory.StartNew(() => { return authentication.authenticatedReddit.User.Comments; });
-            var comment = await Task.Factory.StartNew(() => { return Comments.Count().ToString(); });
-            CountComment.Text = comment.ToString();
-
-
-            await getComments();
-            await getPosts();
-
-
-
-
         }
 
         public async Task getComments()
@@ -73,16 +83,15 @@ namespace RedditPhone
                     Dispatcher.BeginInvoke(() =>
                     {
 
-
                         TextBlock txt = new TextBlock();
+                        txt.TextWrapping = TextWrapping.Wrap;
                         ListBox1.Items.Add(s.Body);
                         ListBox1.Items.Add(" ");
-
                         Comments[CommentIndex] = txt;
                         Comments[CommentIndex].Margin = new Thickness(0, yMargin, 0, 0);
                         CommentUser.Children.Add(Comments[CommentIndex]);
                         CommentIndex++;
-                        yMargin = yMargin + 20;
+                       
                     });
                 }
                 Dispatcher.BeginInvoke(() =>
@@ -102,10 +111,18 @@ namespace RedditPhone
                 {
                     Dispatcher.BeginInvoke(() =>
                     {
-
-
                         TextBlock txt = new TextBlock();
-                        ListBox2.Items.Add(s.Title);
+                        txt.TextWrapping = TextWrapping.Wrap;
+
+                        if (s.Upvotes < 2)
+                        {
+                            ListBox2.Items.Add(s.Title + "  (" + s.Upvotes + " upvote)");
+                        }
+                        else
+                        {
+                            ListBox2.Items.Add(s.Title + "  (" + s.Upvotes + " upvotes)");
+                        }
+
                         ListBox2.Items.Add(" ");
 
                         Comments[postIndex] = txt;
