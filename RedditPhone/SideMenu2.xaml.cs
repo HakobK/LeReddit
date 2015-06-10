@@ -60,29 +60,35 @@ namespace RedditPhone
         /// <param name="e"></param>
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            (Application.Current.RootVisual as PhoneApplicationFrame).Navigate(new Uri("/UserPage.xaml?", UriKind.Relative));
+            // (Application.Current.RootVisual as PhoneApplicationFrame).Navigate(new Uri("/UserPage.xaml?", UriKind.Relative));
+            NavigationService.Navigate(new Uri("/UserPage.xaml?", UriKind.Relative));
         }
 
         public async Task filloutthings()
         {
             await Task.Factory.StartNew(() =>
             {
-            IEnumerable<Subreddit> sub = authentication.authenticatedReddit.User.SubscribedSubreddits;
-            foreach(Subreddit s in sub)
-            {
-                Dispatcher.BeginInvoke(() => { TextBlock txt = new TextBlock(); txt.Text = s.DisplayName; 
+                try
+                {
+                    IEnumerable<Subreddit> sub = authentication.authenticatedReddit.User.SubscribedSubreddits;
+                    foreach (Subreddit s in sub)
+                    {
+                        Dispatcher.BeginInvoke(() =>
+                        {
+                            TextBlock txt = new TextBlock(); txt.Text = s.DisplayName;
 
-                SubscribedSubreddits[SubSubIndex] = txt;
-                SubscribedSubreddits[SubSubIndex].Margin = new Thickness(0, yMargin, 0, 0);
-                loggedSubSub.Children.Add(SubscribedSubreddits[SubSubIndex]);
-                SubSubIndex++;
-                yMargin = yMargin + 20;
-                });
-            }
-            Dispatcher.BeginInvoke(() =>
-            {
-            });
-
+                            SubscribedSubreddits[SubSubIndex] = txt;
+                            SubscribedSubreddits[SubSubIndex].Margin = new Thickness(0, yMargin, 0, 0);
+                            loggedSubSub.Children.Add(SubscribedSubreddits[SubSubIndex]);
+                            SubSubIndex++;
+                            yMargin = yMargin + 20;
+                        });
+                    }
+                }
+                catch(Exception err)
+                {
+                    
+                }
             });
         }
 
@@ -94,7 +100,7 @@ namespace RedditPhone
 
         private void Button_Click_2(object sender, RoutedEventArgs e)
         {
-            (Application.Current.RootVisual as PhoneApplicationFrame).Navigate(new Uri("/MainPage.xaml?", UriKind.Relative));
+            NavigationService.Navigate(new Uri("/MainPage.xaml?", UriKind.Relative));
         }
 
         private async Task disableButtons()
@@ -115,7 +121,9 @@ namespace RedditPhone
                             UserProfile.Opacity = 100;
                             UserProfile.IsEnabled = true;
                             UserProfile.Visibility = Visibility.Visible;
-
+                            LogOut.Visibility = Visibility.Visible;
+                            LogOut.IsEnabled = true;
+                            LogOut.Opacity = 100;
                         }
                         );
                     }
@@ -129,7 +137,9 @@ namespace RedditPhone
                             UserProfile.Opacity = 0;
                             UserProfile.IsEnabled = false;
                             UserProfile.Visibility = Visibility.Collapsed;
-
+                            LogOut.Visibility = Visibility.Collapsed;
+                            LogOut.IsEnabled = false;
+                            LogOut.Opacity = 0;
                         }
                         );
 
@@ -141,6 +151,13 @@ namespace RedditPhone
                 }
 
             });
+        }
+
+        private void LogOut_Click(object sender, RoutedEventArgs e)
+        {
+            authentication.authenticatedReddit = new Reddit();
+            authentication.loggedIn = 0;
+            NavigationService.Navigate(new Uri("/SubredditContent.xaml?", UriKind.Relative));
         }
     }
 }
