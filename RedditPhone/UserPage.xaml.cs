@@ -17,20 +17,20 @@ namespace RedditPhone
     {
         MainPage authentication = new MainPage();
 
-         public TextBlock[] Comments;
-        public int SubSubSize = 100;
-        public int SubSubIndex = 1;
+        public TextBlock[] Comments;
+        public int CommentSize = 100;
+        public int CommentIndex = 1;
         public int yMargin = 0;
 
         public UserPage()
         {
             InitializeComponent();
-            Comments = new TextBlock[SubSubSize];
+            Comments = new TextBlock[CommentSize];
         }
 
         protected async override void OnNavigatedTo(NavigationEventArgs e)
         {
-            
+
             var fullname = await Task.Factory.StartNew(() => { return authentication.authenticatedReddit.User.FullName; });
             txtUserPage.Text = fullname;
 
@@ -41,37 +41,20 @@ namespace RedditPhone
             created1.Text = created.ToString();
 
             var posts = await Task.Factory.StartNew(() => { return authentication.authenticatedReddit.User.Posts; });
-      
+
             var text = await Task.Factory.StartNew(() => { return posts.Count().ToString(); });
             Posts.Text = text.ToString();
 
+            var Comments = await Task.Factory.StartNew(() => { return authentication.authenticatedReddit.User.Comments; });
+            var comment = await Task.Factory.StartNew(() => { return Comments.Count().ToString(); });
+            CountComment.Text = comment.ToString();
+
+
             await DoThings();
-          
-
-            //if (NavigationContext.QueryString.ContainsKey("key"))
-            //{
-            //    string val = NavigationContext.QueryString["key"];
-            //    txtUserPage.Text = "Welcome " + val;
-            //}
-            //if (NavigationContext.QueryString.ContainsKey("comments"))
-            //{
-            //    string listing = "";
-            //    var val1 = NavigationContext.QueryString["comments"];
-            //    foreach(object s in val1)
-            //    {
-            //        listing = listing + " " + s.ToString();
-            //    }
-            //    txtInfo.Text = "Total comments: " + listing;
-            //}
-            //if (NavigationContext.QueryString.ContainsKey("createdat"))
-            //{
-            //    string val1 = NavigationContext.QueryString["createdat"];
-
-            //    createdat.Text = "User create date: " + val1;
-            //}
 
 
-            
+
+
         }
 
         public async Task DoThings()
@@ -79,19 +62,20 @@ namespace RedditPhone
             await Task.Factory.StartNew(() =>
             {
                 IEnumerable<Comment> sub = authentication.authenticatedReddit.User.Comments;
-                foreach (Comment s in sub)
+                foreach (Comment s in sub.Take(3))
                 {
                     Dispatcher.BeginInvoke(() =>
                     {
 
+
                         TextBlock txt = new TextBlock();
-
                         ListBox1.Items.Add(s.Body);
+                        ListBox1.Items.Add(" ");
 
-                        Comments[SubSubIndex] = txt;
-                        Comments[SubSubIndex].Margin = new Thickness(0, yMargin, 0, 0);
-                        CommentUser.Children.Add(Comments[SubSubIndex]);
-                        SubSubIndex++;
+                        Comments[CommentIndex] = txt;
+                        Comments[CommentIndex].Margin = new Thickness(0, yMargin, 0, 0);
+                        CommentUser.Children.Add(Comments[CommentIndex]);
+                        CommentIndex++;
                         yMargin = yMargin + 20;
                     });
                 }
@@ -102,8 +86,8 @@ namespace RedditPhone
             });
         }
 
-       
-        
+
+
 
     }
 }
