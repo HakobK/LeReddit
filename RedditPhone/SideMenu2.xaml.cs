@@ -22,6 +22,7 @@ namespace RedditPhone
         public int SubSubSize = 100;
         public int SubSubIndex = 1;
         public int yMargin = 0;
+        public string key;
         public SideMenu2()
         {
             InitializeComponent();
@@ -34,7 +35,7 @@ namespace RedditPhone
 
             if (NavigationContext.QueryString.ContainsKey("isloggedin"))
             {
-                string key = NavigationContext.QueryString["isloggedin"];
+                key = NavigationContext.QueryString["isloggedin"];
                 logCheck = Convert.ToInt32(key);
                 await filloutthings();
             }
@@ -155,8 +156,9 @@ namespace RedditPhone
 
         private void LogOut_Click(object sender, RoutedEventArgs e)
         {
-            authentication.authenticatedReddit = new Reddit();
+            key = NavigationContext.QueryString[""];
             authentication.loggedIn = 0;
+            logCheck = 0;
             NavigationService.Navigate(new Uri("/SubredditContent.xaml?", UriKind.Relative));
         }
     }

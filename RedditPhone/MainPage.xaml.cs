@@ -25,6 +25,7 @@ namespace RedditPhone
         {
             InitializeComponent();
             authenticatedReddit = new Reddit();
+            
             //sAdControl.ErrorOccurred += new EventHandler<Microsoft.Advertising.AdErrorEventArgs>(sAdControl_ErrorOccurred);
             // Sample code to localize the ApplicationBar
             //BuildLocalizedApplicationBar();
