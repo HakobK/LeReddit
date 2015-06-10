@@ -156,7 +156,7 @@ namespace RedditPhone
 
         private void LogOut_Click(object sender, RoutedEventArgs e)
         {
-            key = NavigationContext.QueryString[""];
+            authentication.authenticatedReddit = new Reddit();
             authentication.loggedIn = 0;
             logCheck = 0;
             NavigationService.Navigate(new Uri("/SubredditContent.xaml?", UriKind.Relative));
