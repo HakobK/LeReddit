@@ -84,12 +84,10 @@ namespace RedditPhone
 
         private async void print(object sender, System.Windows.Input.GestureEventArgs e)
         {
-            MessageBox.Show("u heeft geklikt");
-            Post test22 = new Post();
 
             await Task.Factory.StartNew(() =>
             {
-                Dispatcher.BeginInvoke(() => NavigationService.Navigate(new Uri("/PostContent.xaml?postID=" + test22.Url, UriKind.Relative)));
+                Dispatcher.BeginInvoke(() => NavigationService.Navigate(new Uri("/PostContent.xaml?", UriKind.Relative)));
             }
                 );
         }
@@ -237,6 +235,7 @@ namespace RedditPhone
            {
                foreach (Post post in posts)
                {
+                   
                    if (postCount > initialCounter)
                    {
                        initialCounter++;
@@ -308,13 +307,14 @@ namespace RedditPhone
                            panel1.Children.Add(img);
 
                            ContentPanel.Children.Add(panel1);
-
+                           
                            verticalMargin = verticalMargin + 90;
 
                        });
 
                        objectIndex++;
                        Dispatcher.BeginInvoke(() => { ContentPanel.Height = Height + 1000; });
+                       Dispatcher.BeginInvoke(() => { MessageBox.Show(post.Id.ToString()); });
                        
                    }
                }
@@ -331,11 +331,12 @@ namespace RedditPhone
            {
                foreach (Post post in pagePosts)
                {
+                   testPost = post;
+
                    if (postCount < 10)
                    {
                        postCount++;
                        string postTitle = post.Title;
-                       testPost = post;
                        postCount++;
                        Dispatcher.BeginInvoke(() =>
                        {
