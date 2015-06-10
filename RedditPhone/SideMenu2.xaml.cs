@@ -11,6 +11,7 @@ using RedditPhone.Resources;
 using Newtonsoft;
 using RedditSharpPCL;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace RedditPhone
 {
@@ -54,6 +55,11 @@ namespace RedditPhone
             NavigationService.Navigate(new Uri("/SubredditContent.xaml?subreddits=" + subredditTxt.Text, UriKind.Relative));
         }
 
+        public void goToSub(object sender, System.Windows.Input.GestureEventArgs e)
+        {
+            NavigationService.Navigate(new Uri("/SubredditContent.xaml?subreddits=" + (sender as TextBlock).Tag as string, UriKind.Relative));
+        }
+
         /// <summary>
         /// Button links to UserPage class
         /// </summary>
@@ -76,8 +82,10 @@ namespace RedditPhone
                     {
                         Dispatcher.BeginInvoke(() =>
                         {
-                            TextBlock txt = new TextBlock(); txt.Text = s.DisplayName;
-
+                            TextBlock txt = new TextBlock(); 
+                            txt.Text = s.DisplayName;
+                            txt.Tag = s.DisplayName;
+                            txt.Tap += new EventHandler<GestureEventArgs>(goToSub);
                             SubscribedSubreddits[SubSubIndex] = txt;
                             SubscribedSubreddits[SubSubIndex].Margin = new Thickness(0, yMargin, 0, 0);
                             loggedSubSub.Children.Add(SubscribedSubreddits[SubSubIndex]);
@@ -92,6 +100,8 @@ namespace RedditPhone
                 }
             });
         }
+
+        
 
         /// <summary>
         /// Button links to Authentication to login
