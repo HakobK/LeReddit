@@ -23,17 +23,13 @@
         <!--TitlePanel contains the name of the application and page title-->
         <StackPanel Grid.Row="0" Margin="12,17,0,28">
             <TextBlock Text="MY APPLICATION" Style="{StaticResource PhoneTextNormalStyle}"/>
-            <TextBlock Text="page name" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}"/>
+            <TextBlock Name="postNameText" Text="page name" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}"/>
         </StackPanel>
 
         <!--ContentPanel - place additional content here-->
         <ScrollViewer Height="597" VerticalAlignment="Top" HorizontalAlignment="Right" Width="480" Grid.Row="1" Margin="0,10,0,0">
 
-            <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
-                <TextBox Name="textBoxPost" HorizontalAlignment="Left" Height="119" Margin="0,36,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="456"/>
-                <Button Content="Button" HorizontalAlignment="Left" Margin="27,501,0,0" VerticalAlignment="Top" Click="Button_Click_1"/>
-
-            </Grid>
+            <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0"/>
         </ScrollViewer>
     </Grid>
 

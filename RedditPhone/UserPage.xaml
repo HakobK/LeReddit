@@ -34,6 +34,7 @@
             <TextBlock x:Name="created1" HorizontalAlignment="Left" Margin="240,64,0,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
             <TextBlock x:Name="Amount_Posts" HorizontalAlignment="Left" Margin="10,96,0,0" TextWrapping="Wrap" Text="Amount Posts" VerticalAlignment="Top"/>
             <TextBlock x:Name="PostsCount" HorizontalAlignment="Left" Margin="240,101,0,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
+            <Button x:Name="PMInbox"  Content="PM Inbox" HorizontalAlignment="Left" Margin="277,-13,0,0" VerticalAlignment="Top" Click="Button_Click_1"/>
             <Grid HorizontalAlignment="Left" Height="176" VerticalAlignment="Top" Width="194" Margin="168,244,0,0">
                 <Grid x:Name="CommentUser" HorizontalAlignment="Left" Margin="-151,-30,-81,25" Width="426"/>
                 <ScrollViewer VerticalScrollBarVisibility="Auto" MinHeight="200" HorizontalScrollBarVisibility="Auto" Margin="-151,-49,10,25"   >
