@@ -24,7 +24,7 @@ namespace RedditPhone
         MainPage authentication = new MainPage();
 
         public int verticalMargin = 25;
-        public int objectSize = 55;
+        public int objectSize = 100;
         public int objectIndex = 0;
         public string username;
         public string password;
@@ -59,6 +59,7 @@ namespace RedditPhone
 
         protected async override void OnNavigatedTo(NavigationEventArgs e)
         {
+            postCount = 0;
 
             if (NavigationContext.QueryString.ContainsKey("subreddits"))
             {
@@ -101,9 +102,9 @@ namespace RedditPhone
        {
            Reddit reddit = new Reddit();
            var sReddit = await Task.Factory.StartNew(() => { return reddit.GetSubreddit(subR); });
-           IEnumerable<Post> posts = await Task.Factory.StartNew(() => { return sReddit.Posts.Take(11); });
+           pagePosts = await Task.Factory.StartNew(() => { return sReddit.Posts.Take(50); });
            rName.Text = sReddit.Title;
-           fillPageWithPosts(posts);
+           fillPageWithPosts(pagePosts);
           try
            {
                Uri url = new Uri(sReddit.HeaderImage);
@@ -142,7 +143,7 @@ namespace RedditPhone
        public async Task getContentFrontPageLoggedIn(Reddit reddit)
        {
            var sReddit = await Task.Factory.StartNew(() => { return reddit.FrontPage; });
-           pagePosts = await Task.Factory.StartNew(() => { return sReddit.Posts.Take(11); });
+           pagePosts = await Task.Factory.StartNew(() => { return sReddit.Posts.Take(50); });
            //var text = await Task.Factory.StartNew(() => { return posts.Count().ToString(); });
            rName.Text = sReddit.Title;
            fillPageWithPosts(pagePosts);
@@ -164,7 +165,7 @@ namespace RedditPhone
        {
            Reddit reddit = new Reddit();
            var sReddit = await Task.Factory.StartNew(() => { return reddit.FrontPage; });
-           pagePosts = await Task.Factory.StartNew(() => { return sReddit.Posts.Take(30); });
+           pagePosts = await Task.Factory.StartNew(() => { return sReddit.Posts.Take(50); });
          //  var text = await Task.Factory.StartNew(() => { return pagePosts.Count().ToString(); });
            rName.Text = sReddit.Title;
            fillPageWithPosts(pagePosts);
@@ -194,7 +195,7 @@ namespace RedditPhone
            Reddit reddit = new Reddit();
            reddit = LoggedInReddit;
            var sReddit = await Task.Factory.StartNew(() => { return reddit.FrontPage; });
-           var posts = await Task.Factory.StartNew(() => { return sReddit.New.Take(11); });
+           var posts = await Task.Factory.StartNew(() => { return sReddit.New.Take(50); });
            //var text = await Task.Factory.StartNew(() => { return posts.Count().ToString(); });
            rName.Text = sReddit.Title;
 
@@ -211,23 +212,7 @@ namespace RedditPhone
            }
 
        }
-
-        public async Task getThumbUri(Post post)
-       {
-           await Task.Factory.StartNew(() =>
-               {
-                   if (post.Thumbnail.ToString() == "self")
-                   {
-                       currentPostUri =  new Uri(thumbDefault);
-                   }
-                   else
-                   {
-                       currentPostUri =  post.Thumbnail;
-                   }
-
-               });
-
-       }
+ 
 
         public async void loadMoreItems(IEnumerable<Post> posts, int x)
        {
@@ -285,7 +270,8 @@ namespace RedditPhone
                            }
                            TextBlock txt = new TextBlock();
                            tBlockCollection[objectIndex] = txt;
-                           txt.Text = postTitle;
+                           
+                           txt.Text = postTitle + " " + postCount.ToString() ;
                            txt.FontSize = 14;
 
                            txt.Margin = new Thickness(95, 0, 0, 0);
@@ -337,7 +323,6 @@ namespace RedditPhone
                    {
                        postCount++;
                        string postTitle = post.Title;
-                       postCount++;
                        Dispatcher.BeginInvoke(() =>
                        {
                            thumb = post.Thumbnail.ToString();
@@ -378,7 +363,7 @@ namespace RedditPhone
                            }
                            TextBlock txt = new TextBlock();
                            tBlockCollection[objectIndex] = txt;
-                           txt.Text = postTitle;
+                           txt.Text = postTitle + " " + postCount.ToString();
                            txt.FontSize = 14;
 
                            txt.Margin = new Thickness(95, 0, 0, 0);

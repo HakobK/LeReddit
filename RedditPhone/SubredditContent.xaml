@@ -41,7 +41,7 @@
 
             </Grid>
         </ScrollViewer>
-        <Button Content="=" HorizontalAlignment="Left" Margin="395,0,0,0" VerticalAlignment="Top" Width="78" Click="Button_Click"/>
+        <Button Content="Side Menu" HorizontalAlignment="Left" Margin="315,0,0,0" VerticalAlignment="Top" Width="158" Click="Button_Click"/>
 
         <Grid HorizontalAlignment="Left" Height="45" Margin="6,71,0,0" Grid.Row="1" VerticalAlignment="Top" Width="466">
             <TextBlock x:Name="newTxt1" TextWrapping="Wrap" Margin="149,122,237,10" Tap="newTap" Height="32" RenderTransformOrigin="3.276,1.271">
@@ -57,7 +57,7 @@
             	<Run/>
             </TextBlock>
         </Grid>
-        <Button Content="Button" HorizontalAlignment="Left" Margin="289,0,0,0" VerticalAlignment="Top" Click="Button_Click_1"/>
+        <Button Content="Load Items" HorizontalAlignment="Left" Margin="152,0,0,0" VerticalAlignment="Top" Click="Button_Click_1"/>
 
     </Grid>
 
