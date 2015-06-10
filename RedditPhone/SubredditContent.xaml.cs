@@ -73,7 +73,10 @@ namespace RedditPhone
                 {
                     subredditStatus = "frontpageloggedin";
                     isLoggedIn = 1;
-                    await getContentFrontPageLoggedIn(authentication.authenticatedReddit);
+
+                        await getContentFrontPageLoggedIn(authentication.authenticatedReddit);
+     
+                    
                 }
                 else
                 {
@@ -99,7 +102,6 @@ namespace RedditPhone
            Reddit reddit = new Reddit();
            var sReddit = await Task.Factory.StartNew(() => { return reddit.GetSubreddit(subR); });
            IEnumerable<Post> posts = await Task.Factory.StartNew(() => { return sReddit.Posts.Take(11); });
-           var text = await Task.Factory.StartNew(() => { return posts.Count().ToString(); });
            rName.Text = sReddit.Title;
            fillPageWithPosts(posts);
           try
@@ -140,10 +142,10 @@ namespace RedditPhone
        public async Task getContentFrontPageLoggedIn(Reddit reddit)
        {
            var sReddit = await Task.Factory.StartNew(() => { return reddit.FrontPage; });
-           var posts = await Task.Factory.StartNew(() => { return sReddit.Posts.Take(11); });
-           var text = await Task.Factory.StartNew(() => { return posts.Count().ToString(); });
+           pagePosts = await Task.Factory.StartNew(() => { return sReddit.Posts.Take(11); });
+           //var text = await Task.Factory.StartNew(() => { return posts.Count().ToString(); });
            rName.Text = sReddit.Title;
-           fillPageWithPosts(posts);
+           fillPageWithPosts(pagePosts);
 
            try
            {
@@ -163,7 +165,7 @@ namespace RedditPhone
            Reddit reddit = new Reddit();
            var sReddit = await Task.Factory.StartNew(() => { return reddit.FrontPage; });
            pagePosts = await Task.Factory.StartNew(() => { return sReddit.Posts.Take(30); });
-           var text = await Task.Factory.StartNew(() => { return pagePosts.Count().ToString(); });
+         //  var text = await Task.Factory.StartNew(() => { return pagePosts.Count().ToString(); });
            rName.Text = sReddit.Title;
            fillPageWithPosts(pagePosts);
 
@@ -193,7 +195,7 @@ namespace RedditPhone
            reddit = LoggedInReddit;
            var sReddit = await Task.Factory.StartNew(() => { return reddit.FrontPage; });
            var posts = await Task.Factory.StartNew(() => { return sReddit.New.Take(11); });
-           var text = await Task.Factory.StartNew(() => { return posts.Count().ToString(); });
+           //var text = await Task.Factory.StartNew(() => { return posts.Count().ToString(); });
            rName.Text = sReddit.Title;
 
            fillPageWithPosts(posts);
@@ -330,7 +332,6 @@ namespace RedditPhone
            {
                foreach (Post post in pagePosts)
                {
-                   testPost = post;
 
                    if (postCount < 10)
                    {
