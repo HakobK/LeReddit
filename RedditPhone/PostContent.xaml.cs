@@ -34,29 +34,40 @@ namespace RedditPhone
             InitializeComponent();
         }
 
-        protected async override void OnNavigatedTo(NavigationEventArgs e)
+        protected override void OnNavigatedTo(NavigationEventArgs e)
         {
 
-            Reddit reddit = new Reddit();
+            //Reddit reddit = new Reddit();
 
-            var sReddit = await Task.Factory.StartNew(() => { return reddit.FrontPage; });
-            test = await Task.Factory.StartNew(() => { return sReddit.Posts.Take(1); });
+            //var sReddit = await Task.Factory.StartNew(() => { return reddit.FrontPage; });
+            //test = await Task.Factory.StartNew(() => { return sReddit.Posts.Take(1); });
 
 
-            await Task.Factory.StartNew(() =>
-            {
-                foreach (Post s in test)
-                {
-                    Dispatcher.BeginInvoke(() =>
-                    {
-                        r = s;
-                    });
-                }
 
-            });
-            postNameText.Text = r.Title.ToString();
-            comments = await Task.Factory.StartNew(() => { return r.Comments.Take(50); });
-            fillPageWithComments(comments);
+            //await Task.Factory.StartNew(() =>
+            //{
+
+            ////    //Post r = new Post();
+
+            ////    foreach (Post s in test)
+            ////    {
+            //        Dispatcher.BeginInvoke(() =>
+            //       {
+            //           MessageBox.Show(subredditPage.tappedPost.AuthorName);
+            ////            r = s;
+            //        });
+            ////    }
+
+            //});
+
+            //r = subredditPage.tappedPost;
+
+            //postNameText.Text = r.Title;
+            //comments = await Task.Factory.StartNew(() => { return r.Comments.Take(1); });
+            //await Task.Factory.StartNew(() => { fillPageWithComments(comments); });
+            
+            
+
         }
 
         public async void doShit(IEnumerable<Post> posts)
@@ -122,6 +133,7 @@ namespace RedditPhone
                     string commentBody = com.Body.ToString();
                     string commentAuthor = com.Author.ToString();
                     string commentID = com.Id.ToString();
+                    
 
                         Dispatcher.BeginInvoke(() =>
                         {
@@ -154,6 +166,25 @@ namespace RedditPhone
                         });
                         objectIndex++;
                 }
+            });
+        }
+
+        private async void Button_Click(object sender, RoutedEventArgs e)
+        {
+            await Task.Factory.StartNew(() =>
+            {
+
+                //    //Post r = new Post();
+
+                //    foreach (Post s in test)
+                //    {
+                Dispatcher.BeginInvoke(() =>
+                {
+                    MessageBox.Show(subredditPage.tappedPost.CommentCount.ToString());
+                    //            r = s;
+                });
+                //    }
+
             });
         }
     }

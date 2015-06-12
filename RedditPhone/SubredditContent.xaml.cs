@@ -22,9 +22,10 @@ namespace RedditPhone
     public partial class SubredditContent : PhoneApplicationPage
     {
         MainPage authentication = new MainPage();
+        PostContent abc;
 
         public int verticalMargin = 25;
-        public int objectSize = 100;
+        public int objectSize = 1000;
         public int objectIndex = 0;
         public string username;
         public string password;
@@ -42,14 +43,16 @@ namespace RedditPhone
         public IEnumerable<Post> pagePosts;
         public Uri currentPostUri;
         public Post testPost;
+        public Post tappedPost = new Post();
 
         public SubredditContent()
         {
             InitializeComponent();
-
+            //abc = new PostContent();
             gridCollection = new Grid[objectSize];
             tBlockCollection = new TextBlock[objectSize];
             thumbnailCollection = new Image[objectSize];
+            
 
             rName.FontSize = 27;
             rName.TextWrapping = TextWrapping.Wrap;
@@ -88,15 +91,30 @@ namespace RedditPhone
 
         private async void print(object sender, System.Windows.Input.GestureEventArgs e)
         {
+            abc = new PostContent();
 
             await Task.Factory.StartNew(() =>
             {
-                Dispatcher.BeginInvoke(() => NavigationService.Navigate(new Uri("/PostContent.xaml?", UriKind.Relative)));
-            }
-                );
+               Dispatcher.BeginInvoke(() =>{ 
+                   tappedPost = (sender as Grid).Tag as Post;
+                   NavigationService.Navigate(new Uri("/PostContent.xaml?", UriKind.Relative));
+               });
+                // s = ((Grid)sender).Tag as Post;
+                
+            });
+
         }
 
+        //private async void print(object sender, System.Windows.Input.GestureEventArgs e)
+        //{
 
+        //    tappedPost = (sender as Grid).Tag as Post;
+        //    await Task.Factory.StartNew(() =>
+        //    {
+        //        Dispatcher.BeginInvoke(() => NavigationService.Navigate(new Uri("/PostContent.xaml?", UriKind.Relative)));
+        //    }
+        //        );
+        //}
 
        public async void getContentWithSubr(string subR)
        {
@@ -281,6 +299,7 @@ namespace RedditPhone
                            var panel1 = new Grid();
                            //Dispatcher.BeginInvoke(() => { postListComments = post.Comments; });
                            panel1.Tap += new EventHandler<GestureEventArgs>(print);
+                           panel1.Tag = post;
                            panel1.MaxHeight = 70;
                            panel1.Height = 80;
                            panel1.Width = 465;
@@ -372,6 +391,7 @@ namespace RedditPhone
 
                            var panel1 = new Grid();
                            //Dispatcher.BeginInvoke(() => { postListComments = post.Comments; });
+                           panel1.Tag = post;
                            panel1.Tap += new EventHandler<GestureEventArgs>(print);
                            panel1.MaxHeight = 70;
                            panel1.Height = 80;

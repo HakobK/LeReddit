@@ -23,8 +23,7 @@
 
         <!--TitlePanel contains the name of the application and page title-->
         <StackPanel Grid.Row="0" Margin="6,34,6,625" Grid.RowSpan="2" Tap="StackPanel_Tap">
-            <TextBlock Text="LeReddit" Tap= "StackPanel_Tap" Style="{StaticResource PhoneTextNormalStyle}"/>
-            <TextBlock x:Name="rName" Text="reddit" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}" Height="84"/>
+            <TextBlock x:Name="rName" Text="reddit" Margin="9,15,0,0" Style="{StaticResource PhoneTextTitle1Style}" Height="106" VerticalAlignment="Bottom"/>
 
         </StackPanel>
 
@@ -41,23 +40,19 @@
 
             </Grid>
         </ScrollViewer>
-        <Button Content="Side Menu" HorizontalAlignment="Left" Margin="315,0,0,0" VerticalAlignment="Top" Width="158" Click="Button_Click"/>
+        <Button Content="Menu" HorizontalAlignment="Left" Margin="133,-10,0,0" VerticalAlignment="Top" Width="158" Click="Button_Click" BorderThickness="0,0,0,1" Background="#FF615F5F"/>
 
-        <Grid HorizontalAlignment="Left" Height="45" Margin="6,71,0,0" Grid.Row="1" VerticalAlignment="Top" Width="466">
+        <Grid HorizontalAlignment="Left" Height="45" Margin="6,71,0,0" Grid.Row="1" VerticalAlignment="Top" Width="466" Background="Black">
             <TextBlock x:Name="newTxt1" TextWrapping="Wrap" Margin="149,122,237,10" Tap="newTap" Height="32" RenderTransformOrigin="3.276,1.271">
         		<Run Text="NEW"/>
         		<Run/>
             </TextBlock>
             <TextBlock x:Name="hottTxt" HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="HOT" VerticalAlignment="Top"/>
             <TextBlock x:Name="newTxt" HorizontalAlignment="Left" Margin="70,10,0,0" TextWrapping="Wrap" Text="NEW" VerticalAlignment="Top" Tap="newTxt_Tap"/>
-            <TextBlock HorizontalAlignment="Left" Margin="130,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="25" Width="61">
-            	<Run Text="SAVE"/>
-            	<Run Text="D"/>
-            	<LineBreak/>
-            	<Run/>
-            </TextBlock>
+            <TextBlock HorizontalAlignment="Left" Margin="130,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="25" Width="99" Text="SUBSCRIBE"/>
         </Grid>
-        <Button Content="Load Items" HorizontalAlignment="Left" Margin="152,0,0,0" VerticalAlignment="Top" Click="Button_Click_1"/>
+        <Button Content="Load Items" HorizontalAlignment="Left" VerticalAlignment="Top" Click="Button_Click_1" BorderThickness="0,0,0,1" Margin="0,-10,0,0" Foreground="White" Background="#FF615F5F"/>
+        <Button Content="Submit Post" HorizontalAlignment="Left" Margin="266,-10,0,0" VerticalAlignment="Top" BorderThickness="0,0,0,1" Background="#FF615F5F"/>
 
     </Grid>
 

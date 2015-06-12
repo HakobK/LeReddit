@@ -20,6 +20,7 @@ namespace RedditPhone
         MainPage authentication = new MainPage();
         public int logCheck;
         public TextBlock[] SubscribedSubreddits;
+        public IEnumerable<Subreddit> subscribedSubs;
         public int SubSubSize = 100;
         public int SubSubIndex = 1;
         public int yMargin = 0;
@@ -32,16 +33,26 @@ namespace RedditPhone
 
         protected async override void OnNavigatedTo(NavigationEventArgs e)
         {
-            logCheck = 0;
+           // logCheck = authentication.loggedIn;
+         //   await disableButtons();
 
             if (NavigationContext.QueryString.ContainsKey("isloggedin"))
             {
+                //namding.Visibility = System.Windows.Visibility.Visible;
                 key = NavigationContext.QueryString["isloggedin"];
                 logCheck = Convert.ToInt32(key);
+                await disableButtons();
+          //      await filloutthings();
+            }
+       //     await disableButtons();
+
+
+            if(logCheck == 1)
+            {
+                
                 await filloutthings();
             }
 
-            await disableButtons();
             
         }
 
@@ -75,10 +86,10 @@ namespace RedditPhone
         {
             await Task.Factory.StartNew(() =>
             {
-                try
-                {
-                    IEnumerable<Subreddit> sub = authentication.authenticatedReddit.User.SubscribedSubreddits;
-                    foreach (Subreddit s in sub)
+                //try
+                //{
+                    subscribedSubs = authentication.authenticatedReddit.User.SubscribedSubreddits;
+                    foreach (Subreddit s in subscribedSubs)
                     {
                         Dispatcher.BeginInvoke(() =>
                         {
@@ -86,18 +97,22 @@ namespace RedditPhone
                             txt.Text = s.DisplayName;
                             txt.Tag = s.DisplayName;
                             txt.Tap += new EventHandler<GestureEventArgs>(goToSub);
+                            
                             SubscribedSubreddits[SubSubIndex] = txt;
                             SubscribedSubreddits[SubSubIndex].Margin = new Thickness(0, yMargin, 0, 0);
                             loggedSubSub.Children.Add(SubscribedSubreddits[SubSubIndex]);
                             SubSubIndex++;
-                            yMargin = yMargin + 20;
+                            yMargin = yMargin + 25;
+                            namding.Visibility = System.Windows.Visibility.Visible;
+
                         });
                     }
-                }
-                catch(Exception err)
-                {
-                    
-                }
+                //}
+                
+                //catch(Exception exc)
+                //{
+                //    MessageBox.Show("Failed" + exc);
+                //}
             });
         }
 
@@ -126,15 +141,15 @@ namespace RedditPhone
                         Dispatcher.BeginInvoke(() =>
                         {
                             //LogIn.Content = "Log Out";
-                            LogIn.Opacity = 0;
+                            //LogIn.Opacity = 0;
                             LogIn.IsEnabled = false;
                             LogIn.Visibility = Visibility.Collapsed;
-                            UserProfile.Opacity = 100;
+                           // UserProfile.Opacity = 100;
                             UserProfile.IsEnabled = true;
                             UserProfile.Visibility = Visibility.Visible;
                             LogOut.Visibility = Visibility.Visible;
                             LogOut.IsEnabled = true;
-                            LogOut.Opacity = 100;
+                           // LogOut.Opacity = 100;
                         }
                         );
                     }
@@ -142,15 +157,15 @@ namespace RedditPhone
                     {
                         Dispatcher.BeginInvoke(() =>
                         {
-                            LogIn.Opacity = 100;
+                          //  LogIn.Opacity = 100;
                             LogIn.IsEnabled = true;
                             LogIn.Visibility = Visibility.Visible;
-                            UserProfile.Opacity = 0;
+                         //   UserProfile.Opacity = 0;
                             UserProfile.IsEnabled = false;
                             UserProfile.Visibility = Visibility.Collapsed;
                             LogOut.Visibility = Visibility.Collapsed;
                             LogOut.IsEnabled = false;
-                            LogOut.Opacity = 0;
+                       //     LogOut.Opacity = 0;
                         }
                         );
 
@@ -170,6 +185,11 @@ namespace RedditPhone
             authentication.loggedIn = 0;
             logCheck = 0;
             NavigationService.Navigate(new Uri("/SubredditContent.xaml?", UriKind.Relative));
+        }
+
+        private void goToHomepage_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

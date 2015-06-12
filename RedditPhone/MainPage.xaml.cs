@@ -74,50 +74,20 @@ namespace RedditPhone
                     Dispatcher.BeginInvoke(() =>
                     {
                         NavigationService.Navigate(new Uri("/SubredditContent.xaml?loggedin=" + loggedIn, UriKind.Relative));
-
-
                     });
                 }
-                catch (Exception e)
+                catch (Exception)
                 {
                     Dispatcher.BeginInvoke(() =>
                     {
-                        MessageBox.Show(e.ToString());
-
-                        
+                        MessageBox.Show("Login failed, try again.");
                     });
                 }
             });
 
         }
 
-
-        private async Task login(string username, string password)
-        {
-                
-           //     Reddit reddit = new Reddit();
-            //    Reddit reddit = new RedditSharpPCL Reddit();
-             //   RedditUser user = await Task.Factory.StartNew(() => { return reddit.LogIn(username, password); });
-           //     MessageBox.Show("Successful login");
-
-                // NavigationService.Navigate(new Uri("/UserPage.xaml?name=",UriKind.Relative));
-                //NavigationService.Navigate(new Uri("/SubredditContent.xaml?key=" + user.FullName + "&comments=" + user.Posts + "&createdat=" + user.Created.ToString() , UriKind.Relative));
-
-
-
-            await Task.Factory.StartNew(() =>
-               {
-                   Dispatcher.BeginInvoke(() => NavigationService.Navigate(new Uri("/SubredditContent.xaml?username=" + username + "&password=" + password, UriKind.Relative)));
-               }
-               );
-            
-     
-
-            //Subreddit s = await Task.Factory.StartNew(() => { return reddit.GetSubreddit("fatpeoplehate"); });
-            //Subreddit f = await Task.Run() => reddit.GetSubreddit("windowsphone")
-            //MessageBox.Show(s.Subscribers.ToString());
-        }
-
+    
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
