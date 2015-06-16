@@ -102,6 +102,7 @@
     <Compile Include="SideMenu2.xaml.cs">
       <DependentUpon>SideMenu2.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Statics.cs" />
     <Compile Include="SubredditContent.xaml.cs">
       <DependentUpon>SubredditContent.xaml</DependentUpon>
     </Compile>

@@ -45,26 +45,19 @@ namespace RedditPhone
           ////      await filloutthings();
           //  }
 
-            if (authentication.loggedIn == 1)
+            if (Statics.loggedIn)
             {
-                //namding.Visibility = System.Windows.Visibility.Visible;
-                //key = NavigationContext.QueryString["isloggedin"];
-                //logCheck = Convert.ToInt32(key);
-
                 logCheck = 1;
                 await disableButtons();
-                //      await filloutthings();
-            }
-
-            else { logCheck = 0; await disableButtons(); }
-       //     await disableButtons();
-
-
-            if(logCheck == 1)
-            {
-                
                 await filloutthings();
             }
+
+            else 
+            { 
+                logCheck = 0; 
+                await disableButtons(); 
+            }
+
 
             
         }
@@ -195,14 +188,13 @@ namespace RedditPhone
         private void LogOut_Click(object sender, RoutedEventArgs e)
         {
             authentication.authenticatedReddit = new Reddit();
-            authentication.loggedIn = 0;
-            logCheck = 0;
+            Statics.loggedIn = false;
             NavigationService.Navigate(new Uri("/SubredditContent.xaml?", UriKind.Relative));
         }
 
         private void goToHomepage_Click(object sender, RoutedEventArgs e)
         {
-
+            NavigationService.Navigate(new Uri("/SubredditContent.xaml?", UriKind.Relative));
         }
     }
 }

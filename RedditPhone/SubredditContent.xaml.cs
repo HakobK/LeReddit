@@ -41,7 +41,6 @@ namespace RedditPhone
         public TextBlock[] voteUpCollection;
         public TextBlock[] voteDownCollection;
         public string subredditStatus;
-        public int isLoggedIn;
         public int postCount = 0;
         public IEnumerable<Post> pagePosts;
         public Uri currentPostUri;
@@ -78,14 +77,10 @@ namespace RedditPhone
 
             else
             {
-                if (NavigationContext.QueryString.ContainsKey("loggedin"))
+                if (Statics.loggedIn)
                 {
                     subredditStatus = "frontpageloggedin";
-                    isLoggedIn = 1;
-
-                        await getContentFrontPageLoggedIn(authentication.authenticatedReddit);
-     
-                    
+                    await getContentFrontPageLoggedIn(authentication.authenticatedReddit); 
                 }
                 else
                 {
@@ -202,11 +197,19 @@ namespace RedditPhone
 
        public async Task getContentFrontPage()
        {
-           Reddit reddit = new Reddit();
-           var sReddit = await Task.Factory.StartNew(() => { return reddit.FrontPage; });
+           Reddit reddit2 = new Reddit();
+           var sReddit = await Task.Factory.StartNew(() => { return reddit2.FrontPage; });
            pagePosts = await Task.Factory.StartNew(() => { return sReddit.Posts.Take(50); });
          //  var text = await Task.Factory.StartNew(() => { return pagePosts.Count().ToString(); });
            rName.Text = sReddit.Title;
+
+           gridCollection = new Grid[objectSize];
+           tBlockCollection = new TextBlock[objectSize];
+           thumbnailCollection = new Image[objectSize];
+           upvotesCollection = new TextBlock[objectSize];
+           voteDownCollection = new TextBlock[objectSize];
+           voteUpCollection = new TextBlock[objectSize];
+
            fillPageWithPosts(pagePosts);
 
            try
@@ -534,7 +537,7 @@ namespace RedditPhone
 
        private void Button_Click(object sender, RoutedEventArgs e)
        {
-           NavigationService.Navigate(new Uri("/SideMenu2.xaml?isloggedin=" + isLoggedIn, UriKind.Relative));
+           NavigationService.Navigate(new Uri("/SideMenu2.xaml", UriKind.Relative));
        }
 
        private void newTxt_Tap(object sender, GestureEventArgs e)

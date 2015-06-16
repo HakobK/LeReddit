@@ -34,37 +34,36 @@ namespace RedditPhone
             InitializeComponent();
         }
 
-        protected override void OnNavigatedTo(NavigationEventArgs e)
+        protected async override void OnNavigatedTo(NavigationEventArgs e)
         {
 
-            //Reddit reddit = new Reddit();
+            Reddit reddit = new Reddit();
 
-            //var sReddit = await Task.Factory.StartNew(() => { return reddit.FrontPage; });
-            //test = await Task.Factory.StartNew(() => { return sReddit.Posts.Take(1); });
+            var sReddit = await Task.Factory.StartNew(() => { return reddit.FrontPage; });
+            test = await Task.Factory.StartNew(() => { return sReddit.Posts.Take(1); });
 
 
 
             //await Task.Factory.StartNew(() =>
             //{
 
-            ////    //Post r = new Post();
+            //    Post r = new Post();
 
-            ////    foreach (Post s in test)
-            ////    {
+            //    foreach (Post s in test)
+            //    {
             //        Dispatcher.BeginInvoke(() =>
             //       {
-            //           MessageBox.Show(subredditPage.tappedPost.AuthorName);
-            ////            r = s;
-            //        });
-            ////    }
+            //           r = s;
+            //       });
+            //    }
 
             //});
 
-            //r = subredditPage.tappedPost;
 
             //postNameText.Text = r.Title;
             //comments = await Task.Factory.StartNew(() => { return r.Comments.Take(1); });
-            //await Task.Factory.StartNew(() => { fillPageWithComments(comments); });
+            doShit(test);
+            await Task.Factory.StartNew(() => { fillPageWithComments(comments); });
             
             
 

@@ -18,14 +18,12 @@ namespace RedditPhone
     public partial class MainPage : PhoneApplicationPage
     {
         public Reddit authenticatedReddit;
-        public int loggedIn {set;get;}
 
         // Constructor
         public MainPage()
         {
             InitializeComponent();
             authenticatedReddit = new Reddit();
-            
             //sAdControl.ErrorOccurred += new EventHandler<Microsoft.Advertising.AdErrorEventArgs>(sAdControl_ErrorOccurred);
             // Sample code to localize the ApplicationBar
             //BuildLocalizedApplicationBar();
@@ -44,7 +42,6 @@ namespace RedditPhone
                 }
             }
         }
-
 
         private async void lgnReddit_Click(object sender, RoutedEventArgs e)
         {
@@ -69,11 +66,11 @@ namespace RedditPhone
                 try
                 {
                     authenticatedReddit.LogIn(user,pass);
-                    loggedIn = 1;
                     dostuff();
+                    Statics.loggedIn = true;
                     Dispatcher.BeginInvoke(() =>
                     {
-                        NavigationService.Navigate(new Uri("/SubredditContent.xaml?loggedin=" + loggedIn, UriKind.Relative));
+                        NavigationService.Navigate(new Uri("/SubredditContent.xaml?", UriKind.Relative));
                     });
                 }
                 catch (Exception)
@@ -91,9 +88,9 @@ namespace RedditPhone
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            if (loggedIn == 1)
+            if (Statics.loggedIn)
             {
-                NavigationService.Navigate(new Uri("/SideMenu2.xaml?isloggedin=" + loggedIn, UriKind.Relative));
+                NavigationService.Navigate(new Uri("/SideMenu2.xaml?", UriKind.Relative));
             }
             else
             {
