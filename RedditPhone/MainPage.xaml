@@ -59,7 +59,7 @@
             <Button Content="Menu" HorizontalAlignment="Left" Margin="298,0,0,0" VerticalAlignment="Top" Width="158" Click="Button_Click" BorderThickness="2,0,0,2" Background="#FF615F5F"/>
             <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Authentication" VerticalAlignment="Top" FontSize="40" FontFamily="DokChampa" RenderTransformOrigin="0.83,0.815" Margin="10,4,0,0"/>
             <TextBlock HorizontalAlignment="Left" Margin="17,385,0,0" TextWrapping="Wrap" Text="Forgot password?" VerticalAlignment="Top" Width="180" FontWeight="Bold"/>
-            <TextBlock HorizontalAlignment="Left" Margin="17,417,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="31" Width="199" FontWeight="Bold">
+            <TextBlock HorizontalAlignment="Left" Margin="17,417,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="31" Width="199" FontWeight="Bold" Tap="TextBlock_Tap">
             	<Run Text="Create new account"/>
             	<Run Text="."/>
             	<LineBreak/>

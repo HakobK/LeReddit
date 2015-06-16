@@ -99,6 +99,12 @@ namespace RedditPhone
 
         }
 
+        private void TextBlock_Tap(object sender, System.Windows.Input.GestureEventArgs e)
+        {
+            NavigationService.Navigate(new Uri("/RegisterAccount.xaml?", UriKind.Relative));
+
+        }
+
         // Sample code for building a localized ApplicationBar
         //private void BuildLocalizedApplicationBar()
         //{

@@ -99,6 +99,9 @@
     <Compile Include="InboxPMs.xaml.cs">
       <DependentUpon>InboxPMs.xaml</DependentUpon>
     </Compile>
+    <Compile Include="RegisterAccount.xaml.cs">
+      <DependentUpon>RegisterAccount.xaml</DependentUpon>
+    </Compile>
     <Compile Include="SideMenu2.xaml.cs">
       <DependentUpon>SideMenu2.xaml</DependentUpon>
     </Compile>
@@ -130,6 +133,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="InboxPMs.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="RegisterAccount.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
