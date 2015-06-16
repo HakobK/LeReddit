@@ -273,9 +273,9 @@ namespace RedditPhone
                        {
                            thumb = post.Thumbnail.ToString();
                            var img = new Image();
-                           img.Height = 80;
-                           img.Width = 80;
-                           img.Margin = new Thickness(10, 0, 0, 0);
+                           img.Height = 95;
+                           img.Width = 95;
+                           img.Margin = new Thickness(43, 0, 0, 0);
                            thumbnailCollection[objectIndex] = img;
 
                            if (post.Thumbnail.ToString() != "self")
@@ -294,9 +294,9 @@ namespace RedditPhone
                                    img.Source = new BitmapImage(url3);
                                    img.HorizontalAlignment = HorizontalAlignment.Left;
                                    img.VerticalAlignment = VerticalAlignment.Bottom;
-                                   img.MaxHeight = 70;
+                                   img.MaxHeight = 90;
                                    img.MaxWidth = 100;
-                                   // img.Margin = new Thickness(0, 0, 0, 0);
+                                   img.Margin = new Thickness(43, 0, 0, 0);
                                }
                            }
 
@@ -307,22 +307,45 @@ namespace RedditPhone
                                img.HorizontalAlignment = HorizontalAlignment.Left;
                                // img.Margin = new Thickness(0, 0, 0, 0);
                            }
-                           TextBlock txt = new TextBlock();
-                           tBlockCollection[objectIndex] = txt;
-                           
-                           txt.Text = postTitle + " " + postCount.ToString() ;
-                           txt.FontSize = 14;
 
-                           txt.Margin = new Thickness(95, 0, 0, 0);
-                           txt.TextWrapping = TextWrapping.Wrap;
+                           TextBlock postTit = new TextBlock();
+                           tBlockCollection[objectIndex] = postTit;
+                           postTit.Text = postTitle + " " + postCount.ToString();
+                           postTit.FontSize = 14;
+                           postTit.Margin = new Thickness(143, 0, 0, 0);
+                           postTit.TextWrapping = TextWrapping.Wrap;
                            //  txt.Margin = new Thickness(60,0,0,0);
+
+                           TextBlock totalVotes = new TextBlock();
+                           upvotesCollection[objectIndex] = totalVotes;
+                           totalVotes.Text = post.Upvotes.ToString();
+                           totalVotes.FontSize = 14;
+                           totalVotes.Margin = new Thickness(5, 43, 0, 0);
+                           totalVotes.TextWrapping = TextWrapping.Wrap;
+
+                           TextBlock upvote = new TextBlock();
+                           voteUpCollection[objectIndex] = upvote;
+                           upvote.Tap += new EventHandler<GestureEventArgs>(upVotePost);
+                           upvote.Tag = post;
+                           upvote.Text = "+";
+                           upvote.FontSize = 20;
+                           upvote.Margin = new Thickness(5, 5, 0, 0);
+                           upvote.TextWrapping = TextWrapping.Wrap;
+
+                           TextBlock downvote = new TextBlock();
+                           voteUpCollection[objectIndex] = downvote;
+                           downvote.Text = "-";
+                           downvote.FontSize = 20;
+                           downvote.Margin = new Thickness(5, 75, 0, 0);
+                           downvote.TextWrapping = TextWrapping.Wrap;
 
                            var gridPost = new Grid();
                            //Dispatcher.BeginInvoke(() => { postListComments = post.Comments; });
-                           gridPost.Tap += new EventHandler<GestureEventArgs>(print);
                            gridPost.Tag = post;
-                           gridPost.MaxHeight = 70;
-                           gridPost.Height = 80;
+                           gridPost.Tap += new EventHandler<GestureEventArgs>(print);
+                           //   gridPost.MaxHeight = 70;
+
+                           gridPost.Height = 100;
                            gridPost.Width = 465;
                            gridPost.MaxWidth = 465;
                            gridPost.VerticalAlignment = VerticalAlignment.Top;
@@ -331,12 +354,47 @@ namespace RedditPhone
                            gridPost.Background = myBrush;
 
                            gridCollection[objectIndex] = gridPost;
-                           gridPost.Children.Add(txt);
+                           gridPost.Children.Add(postTit);
                            gridPost.Children.Add(img);
+                           gridPost.Children.Add(totalVotes);
+                           gridPost.Children.Add(upvote);
+                           gridPost.Children.Add(downvote);
 
                            ContentPanel.Children.Add(gridPost);
+
+                           verticalMargin = verticalMargin + 120;
+
+
+                           //TextBlock txt = new TextBlock();
+                           //tBlockCollection[objectIndex] = txt;
                            
-                           verticalMargin = verticalMargin + 90;
+                           //txt.Text = postTitle + " " + postCount.ToString() ;
+                           //txt.FontSize = 14;
+
+                           //txt.Margin = new Thickness(95, 0, 0, 0);
+                           //txt.TextWrapping = TextWrapping.Wrap;
+                           ////  txt.Margin = new Thickness(60,0,0,0);
+
+                           //var gridPost = new Grid();
+                           ////Dispatcher.BeginInvoke(() => { postListComments = post.Comments; });
+                           //gridPost.Tap += new EventHandler<GestureEventArgs>(print);
+                           //gridPost.Tag = post;
+                           //gridPost.MaxHeight = 70;
+                           //gridPost.Height = 80;
+                           //gridPost.Width = 465;
+                           //gridPost.MaxWidth = 465;
+                           //gridPost.VerticalAlignment = VerticalAlignment.Top;
+                           //gridPost.Margin = new Thickness(0, verticalMargin, 0, 0);
+                           //SolidColorBrush myBrush = new SolidColorBrush(Color.FromArgb(255, 35, 35, 35));
+                           //gridPost.Background = myBrush;
+
+                           //gridCollection[objectIndex] = gridPost;
+                           //gridPost.Children.Add(txt);
+                           //gridPost.Children.Add(img);
+
+                           //ContentPanel.Children.Add(gridPost);
+                           
+                           //verticalMargin = verticalMargin + 90;
 
                        });
 

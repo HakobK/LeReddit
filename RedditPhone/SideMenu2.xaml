@@ -22,9 +22,9 @@
         	<Run Text="Subreddit"/>
         	<Run Text=":"/>
         </TextBlock>
-        <Button x:Name="UserProfile"  Content="User Profile" HorizontalAlignment="Left" VerticalAlignment="Top" Click="Button_Click_1" Margin="0,68,0,0" Visibility="Visible" BorderThickness="3,0" Background="#FF615F5F"/>
-        <Button x:Name="LogIn" Content="Log In" HorizontalAlignment="Left" VerticalAlignment="Top" Click="Button_Click_2" Margin="0,68,0,0" Visibility="Visible" BorderThickness="3,0" Background="#FF615F5F" Height="66"/>
-        <Button x:Name="LogOut" Content="Log Out" HorizontalAlignment="Left" Margin="157,68,0,0" VerticalAlignment="Top" Width="147" Click="LogOut_Click" Visibility="Visible" RenderTransformOrigin="0.265,0.875" BorderThickness="3,0" Background="#FF615F5F"/>
+        <Button x:Name="UserProfile"  Content="User Profile" HorizontalAlignment="Left" VerticalAlignment="Top" Click="Button_Click_1" Margin="0,68,0,0" Visibility="Collapsed" BorderThickness="3,0" Background="#FF615F5F"/>
+        <Button x:Name="LogIn" Content="Log In" HorizontalAlignment="Left" VerticalAlignment="Top" Click="Button_Click_2" Margin="0,68,0,0" Visibility="Collapsed" BorderThickness="3,0" Background="#FF615F5F" Height="66"/>
+        <Button x:Name="LogOut" Content="Log Out" HorizontalAlignment="Left" Margin="157,68,0,0" VerticalAlignment="Top" Width="147" Click="LogOut_Click" Visibility="Collapsed" RenderTransformOrigin="0.265,0.875" BorderThickness="3,0" Background="#FF615F5F"/>
         <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Height="52" Width="308" FontSize="40" Margin="10,16,0,0">
         	<Run Text="User Control"/>
         	<LineBreak/>

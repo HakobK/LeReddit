@@ -36,14 +36,27 @@ namespace RedditPhone
            // logCheck = authentication.loggedIn;
          //   await disableButtons();
 
-            if (NavigationContext.QueryString.ContainsKey("isloggedin"))
+          //  if (NavigationContext.QueryString.ContainsKey("isloggedin"))
+          //  {
+          //      //namding.Visibility = System.Windows.Visibility.Visible;
+          //      key = NavigationContext.QueryString["isloggedin"];
+          //      logCheck = Convert.ToInt32(key);
+          //      await disableButtons();
+          ////      await filloutthings();
+          //  }
+
+            if (authentication.loggedIn == 1)
             {
                 //namding.Visibility = System.Windows.Visibility.Visible;
-                key = NavigationContext.QueryString["isloggedin"];
-                logCheck = Convert.ToInt32(key);
+                //key = NavigationContext.QueryString["isloggedin"];
+                //logCheck = Convert.ToInt32(key);
+
+                logCheck = 1;
                 await disableButtons();
-          //      await filloutthings();
+                //      await filloutthings();
             }
+
+            else { logCheck = 0; await disableButtons(); }
        //     await disableButtons();
 
 

@@ -18,7 +18,7 @@ namespace RedditPhone
     public partial class MainPage : PhoneApplicationPage
     {
         public Reddit authenticatedReddit;
-        public int loggedIn;
+        public int loggedIn {set;get;}
 
         // Constructor
         public MainPage()
