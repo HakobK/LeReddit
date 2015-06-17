@@ -16,7 +16,7 @@
         <!--<Button x:Name="Inbox" Content="Inbox" HorizontalAlignment="Left" Margin="194,10,0,0" VerticalAlignment="Top"/> -->
         <TextBlock x:Name="userNamePM" HorizontalAlignment="Left" Margin="26,38,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Text=""/>
         <!-- <Button Content="+" HorizontalAlignment="Left" Margin="303,10,0,0" VerticalAlignment="Top" Width="75"/> -->
-        <Button Content="Menu" HorizontalAlignment="Left" Margin="354,10,0,0" VerticalAlignment="Top" Width="123" Click="Button_Click"/>
+        <Button Content="Menu" HorizontalAlignment="Left" Margin="354,10,0,0" VerticalAlignment="Top" Width="123" Click="Button_Click" Background="#FF615F5F"/>
         <TextBlock x:Name="countMessages" HorizontalAlignment="Left" Margin="26,82,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Height="33" Width="386"/>
         <!-- <Grid x:Name="MessageUser" HorizontalAlignment="Left" Height="100" Margin="203,235,0,0" VerticalAlignment="Top" Width="100">
         </Grid> -->
