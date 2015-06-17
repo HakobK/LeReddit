@@ -49,13 +49,13 @@ namespace RedditPhone
             {
 
 
-                foreach (Comment com in Statics.tappedPost.Comments)
-                {
+                //foreach (Comment com in Statics.tappedPost.Comments)
+                //{
                     Dispatcher.BeginInvoke(() =>
                    {
-                       fillPageWithComments(com);
+                       fillPageWithComments(Statics.tappedPost);
                    });
-                }
+                //}
 
             });
 
@@ -121,11 +121,11 @@ namespace RedditPhone
         //    });
         //}
 
-        public async void fillPageWithComments(IEnumerable<Comment> comments)
+        public async void fillPageWithComments(Post post)
         {
             await Task.Factory.StartNew(() =>
             {
-                foreach (Comment com in comments)
+                foreach (Comment com in post.Comments)
                 {
 
 
