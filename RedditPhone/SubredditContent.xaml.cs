@@ -22,7 +22,6 @@ namespace RedditPhone
     public partial class SubredditContent : PhoneApplicationPage
     {
         MainPage authentication = new MainPage();
-        PostContent abc;
 
         public int verticalMargin = 25;
         public int objectSize = 1000;
@@ -45,7 +44,7 @@ namespace RedditPhone
         public IEnumerable<Post> pagePosts;
         public Uri currentPostUri;
         public Post testPost;
-        public Post tappedPost = new Post();
+
 
         public SubredditContent()
         {
@@ -89,22 +88,23 @@ namespace RedditPhone
             }
         }
 
-        private async void print(object sender, System.Windows.Input.GestureEventArgs e)
-        {
-            abc = new PostContent();
+        //private async void print(object sender, System.Windows.Input.GestureEventArgs e)
+        //{
+        //    abc = new PostContent();
 
-            await Task.Factory.StartNew(() =>
-            {
-                Dispatcher.BeginInvoke(() =>
-                {
-                    tappedPost = (sender as Grid).Tag as Post;
-                    NavigationService.Navigate(new Uri("/PostContent.xaml?", UriKind.Relative));
-                });
-                // s = ((Grid)sender).Tag as Post;
+        //    await Task.Factory.StartNew(() =>
+        //    {
+        //        Dispatcher.BeginInvoke(() =>
+        //        {
+        //            tappedPost = (sender as Grid).Tag as Post;
+        //            NavigationService.Navigate(new Uri("/PostContent.xaml?", UriKind.Relative));
+        //        });
+        //        // s = ((Grid)sender).Tag as Post;
 
-            });
+        //    });
 
-        }
+        //}
+
         private async void upVotePost(object sender, System.Windows.Input.GestureEventArgs e)
         {
 
@@ -112,8 +112,8 @@ namespace RedditPhone
             {
                 Dispatcher.BeginInvoke(() =>
                 {
-                    tappedPost = (sender as TextBlock).Tag as Post;
-                    tappedPost.SetVote(VotableThing.VoteType.Upvote);
+                   Statics.tappedPost = (sender as TextBlock).Tag as Post;
+                   Statics.tappedPost.SetVote(VotableThing.VoteType.Upvote);
                 });
                 // s = ((Grid)sender).Tag as Post;
 
@@ -121,16 +121,17 @@ namespace RedditPhone
 
         }
 
-        //private async void print(object sender, System.Windows.Input.GestureEventArgs e)
-        //{
+        private void print(object sender, System.Windows.Input.GestureEventArgs e)
+        {
 
-        //    tappedPost = (sender as Grid).Tag as Post;
-        //    await Task.Factory.StartNew(() =>
-        //    {
-        //        Dispatcher.BeginInvoke(() => NavigationService.Navigate(new Uri("/PostContent.xaml?", UriKind.Relative)));
-        //    }
-        //        );
-        //}
+
+
+                Dispatcher.BeginInvoke(() => { 
+                    Statics.tappedPost = (sender as Grid).Tag as Post;
+                    NavigationService.Navigate(new Uri("/PostContent.xaml?", UriKind.Relative));
+                });
+
+        }
 
        public async void getContentWithSubr(string subR)
        {
@@ -329,7 +330,7 @@ namespace RedditPhone
 
                            TextBlock upvote = new TextBlock();
                            voteUpCollection[objectIndex] = upvote;
-                           upvote.Tap += new EventHandler<GestureEventArgs>(upVotePost);
+                           //upvote.Tap += new EventHandler<GestureEventArgs>(upVotePost);
                            upvote.Tag = post;
                            upvote.Text = "+";
                            upvote.FontSize = 20;
@@ -481,7 +482,7 @@ namespace RedditPhone
 
                            TextBlock upvote = new TextBlock();
                            voteUpCollection[objectIndex] = upvote;
-                           upvote.Tap += new EventHandler<GestureEventArgs>(upVotePost);
+                           //upvote.Tap += new EventHandler<GestureEventArgs>(upVotePost);
                            upvote.Tag = post;
                            upvote.Text = "+";
                            upvote.FontSize = 20;

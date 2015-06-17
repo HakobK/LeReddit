@@ -10,5 +10,6 @@ namespace RedditPhone
     class Statics
     {
         public static bool loggedIn;
+        public static Post tappedPost;
     }
 }

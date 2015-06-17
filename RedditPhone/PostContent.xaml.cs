@@ -26,6 +26,7 @@ namespace RedditPhone
         public Grid[] gridCollection;
         public TextBlock[] tBlockCollection;
         public string opgeteld = "0";
+        
  
 
         public PostContent()
@@ -37,33 +38,32 @@ namespace RedditPhone
         protected async override void OnNavigatedTo(NavigationEventArgs e)
         {
 
-            Reddit reddit = new Reddit();
+        //    //Reddit reddit = new Reddit();
 
-            var sReddit = await Task.Factory.StartNew(() => { return reddit.FrontPage; });
-            test = await Task.Factory.StartNew(() => { return sReddit.Posts.Take(1); });
-
-
-
-            //await Task.Factory.StartNew(() =>
-            //{
-
-            //    Post r = new Post();
-
-            //    foreach (Post s in test)
-            //    {
-            //        Dispatcher.BeginInvoke(() =>
-            //       {
-            //           r = s;
-            //       });
-            //    }
-
-            //});
+        //    //var sReddit = await Task.Factory.StartNew(() => { return reddit.FrontPage; });
+        //    //test = await Task.Factory.StartNew(() => { return sReddit.Posts.Take(1); });
 
 
-            //postNameText.Text = r.Title;
-            //comments = await Task.Factory.StartNew(() => { return r.Comments.Take(1); });
-            doShit(test);
-            await Task.Factory.StartNew(() => { fillPageWithComments(comments); });
+
+            await Task.Factory.StartNew(() =>
+            {
+
+
+                foreach (Comment com in Statics.tappedPost.Comments)
+                {
+                    Dispatcher.BeginInvoke(() =>
+                   {
+                       fillPageWithComments(com);
+                   });
+                }
+
+            });
+
+
+        //    //postNameText.Text = r.Title;
+        //    //comments = await Task.Factory.StartNew(() => { return r.Comments.Take(1); });
+        //    //doShit(test);
+        //    //await Task.Factory.StartNew(() => { fillPageWithComments(comments); });
             
             
 
@@ -179,7 +179,7 @@ namespace RedditPhone
                 //    {
                 Dispatcher.BeginInvoke(() =>
                 {
-                    MessageBox.Show(subredditPage.tappedPost.CommentCount.ToString());
+                    MessageBox.Show(Statics.tappedPost.CommentCount.ToString());
                     //            r = s;
                 });
                 //    }
