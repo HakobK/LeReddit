@@ -21,16 +21,23 @@ namespace RedditPhone
         public Post r;
         public IEnumerable<Post> test;
         public int verticalMargin = 25;
-        public int objectSize = 55;
+        public int objectSize = 1000;
         public int objectIndex = 0;
         public Grid[] gridCollection;
         public TextBlock[] tBlockCollection;
         public string opgeteld = "0";
+        public TextBlock[] upvotesCollection;
+        public TextBlock[] voteUpCollection;
+        public TextBlock[] voteDownCollection;
+
         
  
 
         public PostContent()
         {
+            upvotesCollection = new TextBlock[objectSize];
+            voteDownCollection = new TextBlock[objectSize];
+            voteUpCollection = new TextBlock[objectSize];
             gridCollection = new Grid[objectSize];
             InitializeComponent();
         }
@@ -125,13 +132,23 @@ namespace RedditPhone
         {
             await Task.Factory.StartNew(() =>
             {
+                Dispatcher.BeginInvoke(() => 
+                {    
+                postNameText.Text = post.Title;
+                postNameText.FontSize = 35;
+                postNameText.TextWrapping = TextWrapping.Wrap;
+                postSubreddit.Text = "/r/" + post.Subreddit;
+                postAuthor.Text = "Author: " + post.AuthorName;
+                });
+
+
                 foreach (Comment com in post.Comments)
                 {
 
 
-                    string commentBody = com.Body.ToString();
-                    string commentAuthor = com.Author.ToString();
-                    string commentID = com.Id.ToString();
+                    string commentBody = com.Body;
+                    string commentAuthor = com.Author;
+                    string commentID = com.Id;
                     
 
                         Dispatcher.BeginInvoke(() =>
