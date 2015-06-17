@@ -10,6 +10,7 @@ using Microsoft.Phone.Shell;
 using RedditPhone.Resources;
 using System.Threading.Tasks;
 using RedditSharpPCL;
+using System.Windows.Media;
 
 namespace RedditPhone
 {
@@ -22,9 +23,11 @@ namespace RedditPhone
         public int MessageIndex = 1;
         public string s;
         public int yMargin = 40;
+        public Grid[] gridCollection;
 
         public InboxPMs()
         {
+            gridCollection = new Grid[1000];
             InitializeComponent();
         }
 
@@ -36,14 +39,14 @@ namespace RedditPhone
         protected async override void OnNavigatedTo(NavigationEventArgs e)
         {
             var fullname = await Task.Factory.StartNew(() => { return authentication.authenticatedReddit.User.FullName; });
-            userNamePM.Text = fullname;
+            userNamePM.Text = "Name: " + fullname;
 
             var Inbox = await Task.Factory.StartNew(() => { return authentication.authenticatedReddit.User.Inbox; });
-
+            
             var privateMessages = await Task.Factory.StartNew(() => { return authentication.authenticatedReddit.User.PrivateMessages; });
             var privateMessage = await Task.Factory.StartNew(() => { return privateMessages.Count().ToString(); });
-            countMessages.Text = privateMessage.ToString();
-
+            countMessages.Text = "Messages: " + privateMessage.ToString();
+             
             await getInbox();
 
         }
@@ -58,27 +61,29 @@ namespace RedditPhone
                     Dispatcher.BeginInvoke(() =>
                     {
 
+                        var commentsGrid = new Grid();
+
+                        commentsGrid.Height = 150;
+                        commentsGrid.Width = 445;
+                        commentsGrid.VerticalAlignment = VerticalAlignment.Top;
+                        commentsGrid.Margin = new Thickness(0, yMargin, 0, 0);
+                        SolidColorBrush myBrush = new SolidColorBrush(Color.FromArgb(255, 35, 35, 35));
+                        commentsGrid.Background = myBrush;
+
                         TextBlock txtpm = new TextBlock();
-                        //s = s + f.Body + " ";
-                        txtpm.Text = f.Author + ": " + f.Subject + "\n" + f.Body;
-                        lBox.Items.Add(txtpm);
-                        //lBox.Items.Add(s);
-                        //lBox.Items.Add(" ");
+                        //txtpm.Margin = new Thickness(0, 0, 5, 0);
+                        txtpm.TextWrapping = TextWrapping.Wrap;
+                        txtpm.Text = "Author: " + f.Author + "\n" + "Subject: " + f.Subject + "\n" + "Message: " + f.Body;
 
-                        lBox.Margin = new Thickness(0, yMargin, 0, 0);
+                        gridCollection[MessageIndex] = commentsGrid;
+                        commentsGrid.Children.Add(txtpm);
 
-                        //Messages[MessageIndex] = txtpm;
-                        //Messages[MessageIndex].Margin = new Thickness(0, yMargin, 0, 0);
-                        //MessageUser.Children.Add(Messages[MessageIndex]);
-                        //MessageIndex++;
-                        yMargin = yMargin + 20;
+
+                        pmGrid.Children.Add(commentsGrid);
+                        yMargin = yMargin + 160;
                     });
+                    MessageIndex++;
                 }
-                //Dispatcher.BeginInvoke(() =>
-                //{
-                //    cncr.Text = s;
-                //});
-
             });
         }
     }

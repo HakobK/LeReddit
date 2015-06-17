@@ -13,15 +13,16 @@
     mc:Ignorable="d"
     shell:SystemTray.IsVisible="True">
     <Grid HorizontalAlignment="Left" Height="768" VerticalAlignment="Top" Width="480">
-        <Button x:Name="Inbox" Content="Inbox" HorizontalAlignment="Left" Margin="194,10,0,0" VerticalAlignment="Top"/>
-        <TextBlock x:Name="userNamePM" HorizontalAlignment="Left" Margin="26,38,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Text="test"/>
-        <Button Content="+" HorizontalAlignment="Left" Margin="303,10,0,0" VerticalAlignment="Top" Width="75"/>
-        <Button Content="=" HorizontalAlignment="Left" Margin="402,10,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click"/>
-        <TextBlock x:Name="countMessages" HorizontalAlignment="Left" Margin="62,87,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Height="233" Width="386"/>
+        <!--<Button x:Name="Inbox" Content="Inbox" HorizontalAlignment="Left" Margin="194,10,0,0" VerticalAlignment="Top"/> -->
+        <TextBlock x:Name="userNamePM" HorizontalAlignment="Left" Margin="26,38,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Text=""/>
+        <!-- <Button Content="+" HorizontalAlignment="Left" Margin="303,10,0,0" VerticalAlignment="Top" Width="75"/> -->
+        <Button Content="Menu" HorizontalAlignment="Left" Margin="354,10,0,0" VerticalAlignment="Top" Width="123" Click="Button_Click"/>
+        <TextBlock x:Name="countMessages" HorizontalAlignment="Left" Margin="26,82,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Height="33" Width="386"/>
         <!-- <Grid x:Name="MessageUser" HorizontalAlignment="Left" Height="100" Margin="203,235,0,0" VerticalAlignment="Top" Width="100">
         </Grid> -->
-        <ScrollViewer HorizontalAlignment="Left" Height="616" VerticalAlignment="Top" Width="460" Margin="10,142,0,0">
-            <ListBox x:Name="lBox" Height="606" FontSize="18" FontStyle="Italic" VerticalAlignment="Top" HorizontalAlignment="Left" />
+        <ScrollViewer x:Name="pmScrollView" HorizontalAlignment="Left" Height="638" VerticalAlignment="Top" Width="460" Margin="10,120,0,0">
+            <Grid x:Name="pmGrid" Height="957" Width="451" VerticalAlignment="Top"/>
+
         </ScrollViewer>
         <!--<TextBlock x:Name="cncr" HorizontalAlignment="Left" Margin="92,38,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top"/> -->
     </Grid>
