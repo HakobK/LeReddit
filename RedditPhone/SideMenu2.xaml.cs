@@ -69,9 +69,20 @@ namespace RedditPhone
         /// <param name="e"></param>
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new Uri("/SubredditContent.xaml?subreddits=" + subredditTxt.Text, UriKind.Relative));
-        }
 
+            if (subredditTxt.Text == "" || subredditTxt.Text == "e.g. 'microsoft'")
+            {
+                Dispatcher.BeginInvoke(() =>
+                {
+                    MessageBox.Show("Please fill in subreddit.");
+
+                });
+            }
+            else
+            {
+                NavigationService.Navigate(new Uri("/SubredditContent.xaml?subreddits=" + subredditTxt.Text, UriKind.Relative));
+            }
+        }
         public void goToSub(object sender, System.Windows.Input.GestureEventArgs e)
         {
             NavigationService.Navigate(new Uri("/SubredditContent.xaml?subreddits=" + (sender as TextBlock).Tag as string, UriKind.Relative));
