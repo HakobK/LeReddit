@@ -112,8 +112,10 @@ namespace RedditPhone
             {
                 Dispatcher.BeginInvoke(() =>
                 {
-                   Statics.tappedPost = (sender as TextBlock).Tag as Post;
-                   Statics.tappedPost.SetVote(VotableThing.VoteType.Upvote);
+                  // Statics.tappedPost = (sender as TextBlock).Tag as Post;
+                    ((sender as TextBlock).Tag as Post).Upvote();
+                   MessageBox.Show("Upvoted post.");
+                    
                 });
                 // s = ((Grid)sender).Tag as Post;
 
@@ -338,7 +340,7 @@ namespace RedditPhone
                            upvote.TextWrapping = TextWrapping.Wrap;
 
                            TextBlock downvote = new TextBlock();
-                           voteUpCollection[objectIndex] = downvote;
+                           voteDownCollection[objectIndex] = downvote;
                            downvote.Text = "-";
                            downvote.FontSize = 20;
                            downvote.Margin = new Thickness(5, 75, 0, 0);
@@ -482,7 +484,7 @@ namespace RedditPhone
 
                            TextBlock upvote = new TextBlock();
                            voteUpCollection[objectIndex] = upvote;
-                           //upvote.Tap += new EventHandler<GestureEventArgs>(upVotePost);
+                          // upvote.Tap += new EventHandler<GestureEventArgs>(upVotePost);
                            upvote.Tag = post;
                            upvote.Text = "+";
                            upvote.FontSize = 20;
@@ -490,7 +492,7 @@ namespace RedditPhone
                            upvote.TextWrapping = TextWrapping.Wrap;
 
                            TextBlock downvote = new TextBlock();
-                           voteUpCollection[objectIndex] = downvote;
+                           voteDownCollection[objectIndex] = downvote;
                            downvote.Text = "-";
                            downvote.FontSize = 20;
                            downvote.Margin = new Thickness(5, 75, 0, 0);

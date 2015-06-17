@@ -29,7 +29,7 @@
 
 
         <!--ContentPanel - place additional content here-->
-        <ScrollViewer Height="534" VerticalAlignment="Top" HorizontalAlignment="Right" Width="480" Grid.Row="1" Margin="0,152,0,0">
+        <ScrollViewer Height="595" VerticalAlignment="Top" HorizontalAlignment="Right" Width="480" Grid.Row="1" Margin="0,116,0,0">
             <Grid x:Name="ContentPanel" Grid.Row="1" Margin="10,0,14,0" Height="1200">
                 <!--<Grid.ColumnDefinitions>
                     <ColumnDefinition Width="23*"/>
@@ -40,13 +40,9 @@
 
             </Grid>
         </ScrollViewer>
-        <Button Content="Menu" HorizontalAlignment="Left" Margin="133,-10,0,0" VerticalAlignment="Top" Width="158" Click="Button_Click" BorderThickness="0,0,0,1" Background="#FF615F5F"/>
+        <Button Content="Menu" HorizontalAlignment="Left" Margin="127,-10,0,0" VerticalAlignment="Top" Width="164" Click="Button_Click" BorderThickness="0,0,0,1" Background="#FF615F5F"/>
 
         <Grid HorizontalAlignment="Left" Height="45" Margin="6,71,0,0" Grid.Row="1" VerticalAlignment="Top" Width="466" Background="Black">
-            <TextBlock x:Name="newTxt1" TextWrapping="Wrap" Margin="149,122,237,10" Tap="newTap" Height="32" RenderTransformOrigin="3.276,1.271">
-        		<Run Text="NEW"/>
-        		<Run/>
-            </TextBlock>
             <TextBlock x:Name="hottTxt" HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="HOT" VerticalAlignment="Top"/>
             <TextBlock x:Name="newTxt" HorizontalAlignment="Left" Margin="70,10,0,0" TextWrapping="Wrap" Text="NEW" VerticalAlignment="Top" Tap="newTxt_Tap"/>
             <TextBlock HorizontalAlignment="Left" Margin="130,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="25" Width="99" Text="SUBSCRIBE"/>

@@ -135,7 +135,7 @@ namespace RedditPhone
                 Dispatcher.BeginInvoke(() => 
                 {    
                 postNameText.Text = post.Title;
-                postNameText.FontSize = 35;
+                postNameText.FontSize = 30;
                 postNameText.TextWrapping = TextWrapping.Wrap;
                 postSubreddit.Text = "/r/" + post.Subreddit;
                 postAuthor.Text = "Author: " + post.AuthorName;
@@ -148,17 +148,18 @@ namespace RedditPhone
 
                     string commentBody = com.Body;
                     string commentAuthor = com.Author;
-                    string commentID = com.Id;
+                    
+
                     
 
                         Dispatcher.BeginInvoke(() =>
                         {
                          
                             TextBlock txt = new TextBlock();
-                            txt.Text = commentID + commentAuthor + ": " + commentBody;
+                            txt.Text = commentAuthor + ": " + commentBody;
                             txt.FontSize = 14;
 
-                            txt.Margin = new Thickness(95, 0, 0, 0);
+                            txt.Margin = new Thickness(30, 0, 0, 0);
                             txt.TextWrapping = TextWrapping.Wrap;
                            
 
@@ -173,7 +174,7 @@ namespace RedditPhone
 
                             TextBlock totalVotes = new TextBlock();
                             upvotesCollection[objectIndex] = totalVotes;
-                            totalVotes.Text = post.Upvotes.ToString();
+                            totalVotes.Text = com.Upvotes.ToString();
                             totalVotes.FontSize = 14;
                             totalVotes.Margin = new Thickness(5, 43, 0, 0);
                             totalVotes.TextWrapping = TextWrapping.Wrap;
