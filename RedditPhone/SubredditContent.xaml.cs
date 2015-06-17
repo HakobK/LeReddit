@@ -176,6 +176,7 @@ namespace RedditPhone
 
        public async Task getContentFrontPageLoggedIn(Reddit reddit)
        {
+
            var sReddit = await Task.Factory.StartNew(() => { return reddit.FrontPage; });
            pagePosts = await Task.Factory.StartNew(() => { return sReddit.Posts.Take(50); });
            //var text = await Task.Factory.StartNew(() => { return posts.Count().ToString(); });
@@ -417,6 +418,7 @@ namespace RedditPhone
        {
            await Task.Factory.StartNew(() =>
            {
+
                foreach (Post post in pagePosts)
                {
 

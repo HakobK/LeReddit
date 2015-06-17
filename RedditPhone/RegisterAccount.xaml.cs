@@ -15,8 +15,11 @@ namespace RedditPhone
 {
     public partial class RegisterAccount : PhoneApplicationPage
     {
+        public Reddit registerer;
+
         public RegisterAccount()
         {
+            registerer = new Reddit();
             InitializeComponent();
         }
 
@@ -27,10 +30,11 @@ namespace RedditPhone
             await Task.Factory.StartNew(() =>
             {
                 //LoggedInReddit.LogIn(user, pass);
-                Reddit reddit = new Reddit();
                 try
                 {
-                    reddit.RegisterAccount(user, pass,mail);
+                    registerer.RegisterAccount(user, pass);
+                    
+                    
                     Dispatcher.BeginInvoke(() =>
                     {
                         MessageBox.Show("Succesfully registered account: " + user);
