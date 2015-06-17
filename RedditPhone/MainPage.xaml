@@ -50,15 +50,15 @@
         <!--TitlePanel contains the name of the application and page title-->
 
         <!--ContentPanel - place additional content here-->
-        <Grid x:Name="ContentPanel" Margin="10,0,14,20" Background="Black" Grid.Row="1">
+        <Grid x:Name="ContentPanel" Margin="10,0,14,20" Background="Black" Grid.Row="1" VerticalAlignment="Top">
             <TextBox x:Name="txtUsername" HorizontalAlignment="Left" Height="72" Margin="0,134,0,0" TextWrapping="Wrap" Text="&#xA;" VerticalAlignment="Top" Width="456"/>
             <TextBlock HorizontalAlignment="Left" Margin="10,107,0,0" TextWrapping="Wrap" Text="Username" VerticalAlignment="Top"/>
             <PasswordBox x:Name="txtPassword" HorizontalAlignment="Left" Margin="0,228,0,0" VerticalAlignment="Top" Width="456"/>
             <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Password" VerticalAlignment="Top" Margin="10,206,0,0"/>
-            <Button x:Name="lgnReddit" Content="Login" HorizontalAlignment="Left" Margin="0,300,0,0" VerticalAlignment="Top" Click="lgnReddit_Click"/>
-            <Button Content="Menu" HorizontalAlignment="Left" Margin="298,0,0,0" VerticalAlignment="Top" Width="158" Click="Button_Click" BorderThickness="2,0,0,2" Background="#FF615F5F"/>
+            <Button x:Name="lgnReddit" Content="Login" HorizontalAlignment="Left" Margin="0,300,0,0" VerticalAlignment="Top" Click="lgnReddit_Click" Background="#FF615F5F" BorderThickness="3,0"/>
+            <Button Content="Menu" HorizontalAlignment="Left" Margin="90,300,0,0" VerticalAlignment="Top" Width="158" Click="Button_Click" BorderThickness="3,0" Background="#FF615F5F"/>
             <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Authentication" VerticalAlignment="Top" FontSize="40" FontFamily="DokChampa" RenderTransformOrigin="0.83,0.815" Margin="10,4,0,0"/>
-            <TextBlock HorizontalAlignment="Left" Margin="17,385,0,0" TextWrapping="Wrap" Text="Forgot password?" VerticalAlignment="Top" Width="180" FontWeight="Bold"/>
+            <TextBlock HorizontalAlignment="Left" Margin="17,385,0,0" TextWrapping="Wrap" Text="Forgot password?" VerticalAlignment="Top" Width="180" FontWeight="Bold" Tap="TextBlock_Tap_1"/>
             <TextBlock HorizontalAlignment="Left" Margin="17,417,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="31" Width="199" FontWeight="Bold" Tap="TextBlock_Tap">
             	<Run Text="Create new account"/>
             	<Run Text="."/>

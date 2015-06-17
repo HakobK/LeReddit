@@ -148,10 +148,9 @@ namespace RedditPhone
 
                     string commentBody = com.Body;
                     string commentAuthor = com.Author;
-                    
 
                     
-
+                    
                         Dispatcher.BeginInvoke(() =>
                         {
                          
@@ -227,6 +226,17 @@ namespace RedditPhone
                 //    }
 
             });
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new Uri("/SubredditContent.xaml", UriKind.Relative));
+
+        }
+
+        private void Button_Click_menu(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new Uri("/SideMenu2.xaml", UriKind.Relative));
         }
     }
 }

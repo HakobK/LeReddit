@@ -21,9 +21,8 @@
         </Grid.RowDefinitions>
 
         <!--TitlePanel contains the name of the application and page title-->
-        <StackPanel Grid.Row="0" Margin="2,69,10,0" Height="111" VerticalAlignment="Top" Grid.RowSpan="2">
-            <TextBlock x:Name="postNameText" Text="page name" Margin="0,15,0,0" Style="{StaticResource PhoneTextTitle1Style}" Height="96" HorizontalAlignment="Right" Width="468"/>
-            <TextBlock TextWrapping="Wrap" Text="TextBlock"/>
+        <StackPanel Grid.Row="0" Margin="10,84,2,0" Height="160" VerticalAlignment="Top" Grid.RowSpan="2">
+            <TextBlock x:Name="postNameText" Text="page name" Margin="0,15,0,0" Style="{StaticResource PhoneTextTitle1Style}" Height="110" HorizontalAlignment="Right" Width="468"/>
         </StackPanel>
 
         <!--ContentPanel - place additional content here-->
@@ -31,8 +30,10 @@
 
             <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0"/>
         </ScrollViewer>
-        <TextBlock x:Name="postSubreddit" HorizontalAlignment="Left" Margin="12,37,0,0" Grid.Row="1" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Width="146"/>
-        <TextBlock x:Name="postAuthor" HorizontalAlignment="Left" Margin="314,42,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Grid.RowSpan="2"/>
+        <TextBlock x:Name="postSubreddit" HorizontalAlignment="Left" Margin="10,69,0,0" Grid.Row="1" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Width="146"/>
+        <TextBlock x:Name="postAuthor" HorizontalAlignment="Left" Margin="344,16,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Grid.RowSpan="2"/>
+        <Button x:Name="btnBack" Content="Back" HorizontalAlignment="Left" VerticalAlignment="Top" Click="Button_Click_1" BorderThickness="0,2" Margin="-2,-6,0,0" Foreground="White" Background="#FF615F5F" Width="118" Grid.RowSpan="2"/>
+        <Button x:Name="btnMenu" Content="Menu" HorizontalAlignment="Left" VerticalAlignment="Top" Click="Button_Click_menu" BorderThickness="0,2,2,2" Margin="88,-6,0,0" Foreground="White" Background="#FF615F5F" Width="108" Grid.RowSpan="2"/>
     </Grid>
 
 </phone:PhoneApplicationPage>

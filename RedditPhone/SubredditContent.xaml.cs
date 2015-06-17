@@ -79,7 +79,9 @@ namespace RedditPhone
                 if (Statics.loggedIn)
                 {
                     subredditStatus = "frontpageloggedin";
+                    Dispatcher.BeginInvoke(() => { btnLogin.Content = "Logout"; });
                     await getContentFrontPageLoggedIn(authentication.authenticatedReddit); 
+
                 }
                 else
                 {

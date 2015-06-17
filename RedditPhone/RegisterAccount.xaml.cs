@@ -61,5 +61,16 @@ namespace RedditPhone
         {
             await register(Username.Text,Password.Password,Email.Text);
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new Uri("/MainPage.xaml?", UriKind.Relative));
+        }
+
+        private void btnMenu_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new Uri("/SideMenu2.xaml?", UriKind.Relative));
+
+        }
     }
 }

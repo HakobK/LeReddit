@@ -11,6 +11,7 @@ using RedditPhone.Resources;
 using Newtonsoft;
 using RedditSharpPCL;
 using System.Threading.Tasks;
+using System.IO.IsolatedStorage;
 
 namespace RedditPhone
 {
@@ -103,6 +104,14 @@ namespace RedditPhone
         {
             NavigationService.Navigate(new Uri("/RegisterAccount.xaml?", UriKind.Relative));
 
+        }
+
+        private void TextBlock_Tap_1(object sender, System.Windows.Input.GestureEventArgs e)
+        {
+            Dispatcher.BeginInvoke(() =>
+            {
+                MessageBox.Show("Then write it down you idiot.");
+            });
         }
 
         // Sample code for building a localized ApplicationBar

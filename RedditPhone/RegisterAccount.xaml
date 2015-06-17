@@ -31,10 +31,12 @@
             <TextBlock HorizontalAlignment="Left" Margin="0,100,0,0" TextWrapping="Wrap" Text="Password" VerticalAlignment="Top"/>
             <PasswordBox x:Name="Password" HorizontalAlignment="Left" Margin="-10,117,0,0" VerticalAlignment="Top" Width="456"/>
             <TextBlock HorizontalAlignment="Left" Margin="0,194,0,0" TextWrapping="Wrap" Text="Email" VerticalAlignment="Top"/>
-            <Button x:Name="btnRegister" Content="Register" HorizontalAlignment="Left" Margin="-10,283,0,0" VerticalAlignment="Top" Width="232" Click="btnRegister_Click"/>
+            <Button x:Name="btnRegister" Content="Register" HorizontalAlignment="Left" Margin="-10,283,0,0" VerticalAlignment="Top" Width="174" Click="btnRegister_Click" Background="#FF615F5F" BorderThickness="3,0"/>
+            <Button x:Name="btnToLogin" Content="To login" HorizontalAlignment="Left" Margin="150,335,0,0" VerticalAlignment="Top" BorderThickness="3,0" Background="#FF615F5F" Width="174" Click="Button_Click"/>
+            <Button x:Name="btnMenu" Content="Menu" HorizontalAlignment="Left" Margin="-10,335,0,0" VerticalAlignment="Top" BorderThickness="3,0" Background="#FF615F5F" Width="174" Click="btnMenu_Click"/>
 
         </Grid>
-        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="40" FontFamily="DokChampa" RenderTransformOrigin="0.83,0.815" Margin="12,17,0,0" Height="57" Width="400">
+        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="40" FontFamily="DokChampa" RenderTransformOrigin="0.83,0.815" Margin="12,35,0,0" Height="57" Width="400">
         	<Run Text="Register account"/>
         	<LineBreak/>
         	<Run/>
