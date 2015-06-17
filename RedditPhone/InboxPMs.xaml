@@ -14,16 +14,16 @@
     shell:SystemTray.IsVisible="True">
     <Grid HorizontalAlignment="Left" Height="768" VerticalAlignment="Top" Width="480">
         <Button x:Name="Inbox" Content="Inbox" HorizontalAlignment="Left" Margin="194,10,0,0" VerticalAlignment="Top"/>
-        <TextBlock x:Name="userNamePM" HorizontalAlignment="Left" Margin="83,33,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Text="test"/>
+        <TextBlock x:Name="userNamePM" HorizontalAlignment="Left" Margin="26,38,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Text="test"/>
         <Button Content="+" HorizontalAlignment="Left" Margin="303,10,0,0" VerticalAlignment="Top" Width="75"/>
         <Button Content="=" HorizontalAlignment="Left" Margin="402,10,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click"/>
-        <TextBlock x:Name="countMessages" HorizontalAlignment="Left" Margin="43,109,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Height="224" Width="386"/>
-        <Grid x:Name="MessageUser" HorizontalAlignment="Left" Height="100" Margin="203,233,0,0" VerticalAlignment="Top" Width="100">
-        </Grid>
-        <ScrollViewer HorizontalAlignment="Left" Height="100" VerticalAlignment="Top" Width="100" Margin="43,142,0,0">
-        <ListBox x:Name="lBox" Height="189" FontSize="18" FontStyle="Italic" VerticalAlignment="Top" HorizontalAlignment="Left" />
+        <TextBlock x:Name="countMessages" HorizontalAlignment="Left" Margin="62,87,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Height="233" Width="386"/>
+        <!-- <Grid x:Name="MessageUser" HorizontalAlignment="Left" Height="100" Margin="203,235,0,0" VerticalAlignment="Top" Width="100">
+        </Grid> -->
+        <ScrollViewer HorizontalAlignment="Left" Height="616" VerticalAlignment="Top" Width="460" Margin="10,142,0,0">
+            <ListBox x:Name="lBox" Height="606" FontSize="18" FontStyle="Italic" VerticalAlignment="Top" HorizontalAlignment="Left" />
         </ScrollViewer>
-        <TextBlock x:Name="cncr" HorizontalAlignment="Left" Margin="148,220,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top"/>
+        <!--<TextBlock x:Name="cncr" HorizontalAlignment="Left" Margin="92,38,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top"/> -->
     </Grid>
 
     <!--LayoutRoot is the root grid where all page content is placed-->

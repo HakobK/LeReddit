@@ -21,7 +21,7 @@ namespace RedditPhone
         public int MessageSize = 100;
         public int MessageIndex = 1;
         public string s;
-        public int yMargin = 0;
+        public int yMargin = 40;
 
         public InboxPMs()
         {
@@ -53,28 +53,31 @@ namespace RedditPhone
             await Task.Factory.StartNew(() =>
             {
                 IEnumerable<PrivateMessage> privateMessage = authentication.authenticatedReddit.User.PrivateMessages;
-                foreach (PrivateMessage f in privateMessage.Take(1))
+                foreach (PrivateMessage f in privateMessage.Take(10))
                 {
                     Dispatcher.BeginInvoke(() =>
                     {
 
                         TextBlock txtpm = new TextBlock();
-                        s = s + f.Body + " ";
-
-                        //lBox.Items.Add(f.Body);
+                        //s = s + f.Body + " ";
+                        txtpm.Text = f.Author + ": " + f.Subject + "\n" + f.Body;
+                        lBox.Items.Add(txtpm);
+                        //lBox.Items.Add(s);
                         //lBox.Items.Add(" ");
 
+                        lBox.Margin = new Thickness(0, yMargin, 0, 0);
+
                         //Messages[MessageIndex] = txtpm;
-                        ////Messages[MessageIndex].Margin = new Thickness(0, yMargin, 0, 0);
+                        //Messages[MessageIndex].Margin = new Thickness(0, yMargin, 0, 0);
                         //MessageUser.Children.Add(Messages[MessageIndex]);
                         //MessageIndex++;
-                        //yMargin = yMargin + 20;
+                        yMargin = yMargin + 20;
                     });
                 }
-                Dispatcher.BeginInvoke(() =>
-                {
-                    cncr.Text = s;
-                });
+                //Dispatcher.BeginInvoke(() =>
+                //{
+                //    cncr.Text = s;
+                //});
 
             });
         }
