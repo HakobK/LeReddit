@@ -21,8 +21,8 @@
         </Grid.RowDefinitions>
 
         <!--TitlePanel contains the name of the application and page title-->
-        <StackPanel Grid.Row="0" Margin="2,69,10,0" Height="111" VerticalAlignment="Top" Grid.RowSpan="2">
-            <TextBlock x:Name="postNameText" Text="page name" Margin="0,15,0,0" Style="{StaticResource PhoneTextTitle1Style}" Height="96" HorizontalAlignment="Right" Width="468"/>
+        <StackPanel Grid.Row="1" Margin="2,27,10,0" Height="111" VerticalAlignment="Top">
+            <TextBlock x:Name="postNameText" Text="page name" Margin="0,15,0,0" Style="{StaticResource PhoneTextTitle1Style}" Height="96" HorizontalAlignment="Right" Width="458"/>
             <TextBlock TextWrapping="Wrap" Text="TextBlock"/>
         </StackPanel>
 
@@ -31,8 +31,10 @@
 
             <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0"/>
         </ScrollViewer>
-        <TextBlock x:Name="postSubreddit" HorizontalAlignment="Left" Margin="12,37,0,0" Grid.Row="1" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Width="146"/>
-        <TextBlock x:Name="postAuthor" HorizontalAlignment="Left" Margin="314,42,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Grid.RowSpan="2"/>
+        <TextBlock x:Name="postSubreddit" HorizontalAlignment="Left" Margin="10,55,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Width="146" Grid.RowSpan="2"/>
+        <TextBlock x:Name="postAuthor" HorizontalAlignment="Left" Margin="316,55,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Grid.RowSpan="2"/>
+        <Button x:Name="btnHomepage" Content="Homepage" HorizontalAlignment="Left" Margin="0,-10,0,0" VerticalAlignment="Top" BorderThickness="0,2" Background="#FF615F5F" Width="166" Click="Button_Click_Homepage"/>
+        <Button x:Name="btnMenu" Content="Menu" HorizontalAlignment="Left" Margin="138,-10,0,0" VerticalAlignment="Top" BorderThickness="0,2,2,2" Background="#FF615F5F" Width="124" Click="Button_Click_2"/>
     </Grid>
 
 </phone:PhoneApplicationPage>

@@ -228,5 +228,18 @@ namespace RedditPhone
 
             });
         }
+
+        private void Button_Click_Homepage(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new Uri("/SubredditContent.xaml?", UriKind.Relative));
+
+        }
+
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new Uri("/SideMenu2.xaml?", UriKind.Relative));
+
+        }
+
     }
 }
