@@ -20,6 +20,7 @@ namespace RedditPhone
         public int postIndex = 1;
         public IEnumerable<Comment> comments;
         public IEnumerable<Post> posts;
+        int navigated = 0;
 
         public UserPage()
         {
@@ -31,7 +32,8 @@ namespace RedditPhone
         /// </summary>
         /// <param name="e"></param>
         protected async override void OnNavigatedTo(NavigationEventArgs e)
-        {         
+        {
+        
             // fill textboxes with returned value
             txtUserPage.Text = await Task.Factory.StartNew(() => { return authentication.authenticatedReddit.User.FullName; });
             commentKarma.Text = await Task.Factory.StartNew(() => { return authentication.authenticatedReddit.User.CommentKarma.ToString(); });
@@ -40,8 +42,17 @@ namespace RedditPhone
             PostsCount.Text = await Task.Factory.StartNew(() => { return authentication.authenticatedReddit.User.Posts.Count().ToString();});
             CountComment.Text = await Task.Factory.StartNew(() => { return authentication.authenticatedReddit.User.Comments.Count().ToString(); });
 
-            await getComments();
-            await getPosts();
+            if (navigated == 0)
+            {
+                await getComments();
+                await getPosts();
+            }
+            else
+            {
+
+            }
+
+            navigated++;
         }
 
        
@@ -112,6 +123,9 @@ namespace RedditPhone
         {
             (Application.Current.RootVisual as PhoneApplicationFrame).Navigate(new Uri("/InboxPMs.xaml?", UriKind.Relative));
         }
-
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new Uri("/SideMenu2.xaml", UriKind.Relative));
+        }
     }
 }
