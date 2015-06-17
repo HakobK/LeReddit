@@ -31,8 +31,8 @@
             <TextBlock x:Name="created1" HorizontalAlignment="Left" Margin="240,64,0,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
             <TextBlock x:Name="Amount_Posts" HorizontalAlignment="Left" Margin="10,96,0,0" TextWrapping="Wrap" Text="Amount Posts" VerticalAlignment="Top"/>
             <TextBlock x:Name="PostsCount" HorizontalAlignment="Left" Margin="240,101,0,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
-            <Button x:Name="PMInbox"  Content="PM Inbox" HorizontalAlignment="Left" VerticalAlignment="Top" Click="Button_Click_1" BorderThickness="0,0,0,1" Margin="-25,-136,0,0" Foreground="White" Background="#FF615F5F" Width="158"/>
-            <Button Content="Menu" HorizontalAlignment="Left" Margin="101,-136,0,0" VerticalAlignment="Top" Width="139" Click="Button_Click" BorderThickness="0,0,0,1" Background="#FF615F5F"/>
+            <Button x:Name="PMInbox"  Content="PM Inbox" HorizontalAlignment="Left" VerticalAlignment="Top" Click="Button_Click_1" BorderThickness="0,2" Margin="-14,-136,0,0" Foreground="White" Background="#FF615F5F" Width="158"/>
+            <Button Content="Menu" HorizontalAlignment="Left" Margin="117,-136,0,0" VerticalAlignment="Top" Width="139" Click="Button_Click" BorderThickness="0,2,2,2" Background="#FF615F5F"/>
 
             
             <Grid HorizontalAlignment="Left" Height="176" VerticalAlignment="Top" Width="194" Margin="168,244,0,0">
