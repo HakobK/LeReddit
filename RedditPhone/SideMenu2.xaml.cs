@@ -196,5 +196,10 @@ namespace RedditPhone
         {
             NavigationService.Navigate(new Uri("/SubredditContent.xaml?", UriKind.Relative));
         }
+
+        private void subredditTxt_Tap(object sender, GestureEventArgs e)
+        {
+            subredditTxt.Text = "";
+        }
     }
 }

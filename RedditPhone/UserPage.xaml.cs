@@ -15,102 +15,79 @@ namespace RedditPhone
 {
     public partial class UserPage : PhoneApplicationPage
     {
-        MainPage authentication = new MainPage();
-       
-        public TextBlock[] Comments;
-        public int CommentSize = 100;
+        MainPage authentication = new MainPage();  
         public int CommentIndex = 1;
-
-        public TextBlock[] Posts;
-        public int postSize = 100;
         public int postIndex = 1;
-
-        public int yMargin = 0;
+        public IEnumerable<Comment> comments;
+        public IEnumerable<Post> posts;
 
         public UserPage()
         {
-            InitializeComponent();
-            Comments = new TextBlock[CommentSize];
+            InitializeComponent();     
         }
 
+        /// <summary>
+        /// Get the profile information and display this
+        /// </summary>
+        /// <param name="e"></param>
         protected async override void OnNavigatedTo(NavigationEventArgs e)
-        {
-            await getstuff();
-            await loadPosts();
-            await loadComments();        
+        {         
+            // fill textboxes with returned value
+            txtUserPage.Text = await Task.Factory.StartNew(() => { return authentication.authenticatedReddit.User.FullName; });
+            commentKarma.Text = await Task.Factory.StartNew(() => { return authentication.authenticatedReddit.User.CommentKarma.ToString(); });
+            linkKarma.Text = await Task.Factory.StartNew(() => { return authentication.authenticatedReddit.User.LinkKarma.ToString(); });
+            created1.Text = await Task.Factory.StartNew(() => { return authentication.authenticatedReddit.User.Created.ToString(); });        
+            PostsCount.Text = await Task.Factory.StartNew(() => { return authentication.authenticatedReddit.User.Posts.Count().ToString();});
+            CountComment.Text = await Task.Factory.StartNew(() => { return authentication.authenticatedReddit.User.Comments.Count().ToString(); });
+
             await getComments();
             await getPosts();
         }
 
-        public async Task loadPosts()
-        {
-            var posts = await Task.Factory.StartNew(() => { return authentication.authenticatedReddit.User.Posts; });
-            int countPost = await Task.Factory.StartNew(() => { return posts.Count(); });
-            PostsCount.Text = countPost.ToString();
-        }
-
-        public async Task loadComments()
-        {
-            var Comments = await Task.Factory.StartNew(() =>
- { return authentication.authenticatedReddit.User.Comments; });
-            int countComment = await Task.Factory.StartNew(() => { return Comments.Count(); });
-            CountComment.Text = countComment.ToString();
-        }
-
-        public async Task getstuff()
-        {
-            var fullname = await Task.Factory.StartNew(() => { return authentication.authenticatedReddit.User.FullName; });
-            txtUserPage.Text = fullname;
-
-            var CommentKarma = await Task.Factory.StartNew(() => { return authentication.authenticatedReddit.User.CommentKarma; });
-            commentKarma.Text = CommentKarma.ToString();
-
-            var LinkKarma = await Task.Factory.StartNew(() => { return authentication.authenticatedReddit.User.LinkKarma; });
-            linkKarma.Text = LinkKarma.ToString();
-
-            var created = await Task.Factory.StartNew(() => { return authentication.authenticatedReddit.User.Created; });
-            created1.Text = created.ToString();
-        }
-
+       
+        /// <summary>
+        /// Method to get all the comments from the user
+        /// </summary>
+        /// <returns></returns>
         public async Task getComments()
-        {
+        {            
             await Task.Factory.StartNew(() =>
-            {
-                IEnumerable<Comment> comment  = authentication.authenticatedReddit.User.Comments;
-                foreach (Comment commentText in comment.Take(3))
+            {            
+                comments = authentication.authenticatedReddit.User.Comments;
+                foreach (Comment commentText in comments.Take(3))
                 {
                     Dispatcher.BeginInvoke(() =>
                     {
-                        TextBlock txt = new TextBlock();
-                        txt.TextWrapping = TextWrapping.Wrap;
-                        ListBox1.Items.Add(commentText.Body);
+                        // display the comments good
+                        if (commentText.Upvotes < 2)
+                        {
+                            ListBox1.Items.Add(commentText.Body + "  (" + commentText.Upvotes + " upvote)");
+                        }
+                        else
+                        {
+                            ListBox1.Items.Add(commentText.Body + "  (" + commentText.Upvotes + " upvotes)");
+                        }                   
                         ListBox1.Items.Add(" ");
-                        Comments[CommentIndex] = txt;
-                        Comments[CommentIndex].Margin = new Thickness(0, yMargin, 0, 0);
-                        CommentUser.Children.Add(Comments[CommentIndex]);
-                        CommentIndex++;                    
+                        CommentIndex++;
                     });
                 }
-                Dispatcher.BeginInvoke(() =>
-                {
-                });
-
-            });
+            });                          
         }
 
-
-        public async Task getPosts()
-        {
-            await Task.Factory.StartNew(() =>
+        /// <summary>
+        /// Method to get al the posts from the user with amount of upvotes
+        /// </summary>
+        /// <returns></returns>
+       public async Task getPosts()
+       {
+           await Task.Factory.StartNew(() =>
             {
-                IEnumerable<Post> post = authentication.authenticatedReddit.User.Posts;
-                foreach (Post s in post.Take(3))
+                posts = authentication.authenticatedReddit.User.Posts;
+                foreach (Post s in posts.Take(3))
                 {
                     Dispatcher.BeginInvoke(() =>
                     {
-                        TextBlock txt = new TextBlock();
-                        txt.TextWrapping = TextWrapping.Wrap;
-
+                        // display the posts good                   
                         if (s.Upvotes < 2)
                         {
                             ListBox2.Items.Add(s.Title + "  (" + s.Upvotes + " upvote)");
@@ -119,23 +96,18 @@ namespace RedditPhone
                         {
                             ListBox2.Items.Add(s.Title + "  (" + s.Upvotes + " upvotes)");
                         }
-
                         ListBox2.Items.Add(" ");
-
-                        Comments[postIndex] = txt;
-                        Comments[postIndex].Margin = new Thickness(0, yMargin, 0, 0);
-                        CommentUser.Children.Add(Comments[postIndex]);
                         postIndex++;
-                        yMargin = yMargin + 20;
                     });
                 }
-                Dispatcher.BeginInvoke(() =>
-                {
-                });
-
             });
-        }
+       }
 
+        /// <summary>
+        /// Button to navigate to inboxPM
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
             (Application.Current.RootVisual as PhoneApplicationFrame).Navigate(new Uri("/InboxPMs.xaml?", UriKind.Relative));

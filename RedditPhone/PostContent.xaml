@@ -27,12 +27,12 @@
         </StackPanel>
 
         <!--ContentPanel - place additional content here-->
-        <ScrollViewer Height="597" VerticalAlignment="Top" HorizontalAlignment="Right" Width="480" Grid.Row="1" Margin="0,148,0,0">
+        <ScrollViewer Height="565" VerticalAlignment="Top" HorizontalAlignment="Right" Width="480" Grid.Row="1" Margin="0,180,0,0">
 
             <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0"/>
         </ScrollViewer>
         <TextBlock x:Name="postSubreddit" HorizontalAlignment="Left" Margin="12,37,0,0" Grid.Row="1" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Width="146"/>
-        <TextBlock x:Name="postAuthor" HorizontalAlignment="Left" Margin="328,42,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Grid.RowSpan="2"/>
+        <TextBlock x:Name="postAuthor" HorizontalAlignment="Left" Margin="314,42,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Grid.RowSpan="2"/>
     </Grid>
 
 </phone:PhoneApplicationPage>

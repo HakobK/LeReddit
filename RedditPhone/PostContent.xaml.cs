@@ -135,7 +135,7 @@ namespace RedditPhone
                 Dispatcher.BeginInvoke(() => 
                 {    
                 postNameText.Text = post.Title;
-                postNameText.FontSize = 35;
+                postNameText.FontSize = 30;
                 postNameText.TextWrapping = TextWrapping.Wrap;
                 postSubreddit.Text = "/r/" + post.Subreddit;
                 postAuthor.Text = "Author: " + post.AuthorName;
@@ -148,37 +148,62 @@ namespace RedditPhone
 
                     string commentBody = com.Body;
                     string commentAuthor = com.Author;
-                    string commentID = com.Id;
+                    
+
                     
 
                         Dispatcher.BeginInvoke(() =>
                         {
                          
                             TextBlock txt = new TextBlock();
-                            txt.Text = commentID + commentAuthor + ": " + commentBody;
+                            txt.Text = commentAuthor + ": " + commentBody;
                             txt.FontSize = 14;
 
-                            txt.Margin = new Thickness(95, 0, 0, 0);
+                            txt.Margin = new Thickness(30, 0, 0, 0);
                             txt.TextWrapping = TextWrapping.Wrap;
                            
 
-                            var panel1 = new Grid();
+                            var commentsGrid = new Grid();
                             
-                            panel1.MaxHeight = 70;
-                            panel1.Height = 80;
-                            panel1.Width = 465;
-                            panel1.MaxWidth = 465;
-                            panel1.VerticalAlignment = VerticalAlignment.Top;
-                            panel1.Margin = new Thickness(0, verticalMargin, 0, 0);
+                            commentsGrid.Height = 100;
+                            commentsGrid.Width = 465;
+                            commentsGrid.VerticalAlignment = VerticalAlignment.Top;
+                            commentsGrid.Margin = new Thickness(0, verticalMargin, 0, 0);
                             SolidColorBrush myBrush = new SolidColorBrush(Color.FromArgb(255, 35, 35, 35));
-                            panel1.Background = myBrush;
+                            commentsGrid.Background = myBrush;
 
-                            gridCollection[objectIndex] = panel1;
-                            panel1.Children.Add(txt);
+                            TextBlock totalVotes = new TextBlock();
+                            upvotesCollection[objectIndex] = totalVotes;
+                            totalVotes.Text = com.Upvotes.ToString();
+                            totalVotes.FontSize = 14;
+                            totalVotes.Margin = new Thickness(5, 43, 0, 0);
+                            totalVotes.TextWrapping = TextWrapping.Wrap;
 
-                            ContentPanel.Children.Add(panel1);
+                            TextBlock upvote = new TextBlock();
+                            voteUpCollection[objectIndex] = upvote;
+                            //upvote.Tap += new EventHandler<GestureEventArgs>(upVotePost);
+                            upvote.Tag = post;
+                            upvote.Text = "+";
+                            upvote.FontSize = 20;
+                            upvote.Margin = new Thickness(5, 5, 0, 0);
+                            upvote.TextWrapping = TextWrapping.Wrap;
 
-                            verticalMargin = verticalMargin + 90;
+                            TextBlock downvote = new TextBlock();
+                            voteUpCollection[objectIndex] = downvote;
+                            downvote.Text = "-";
+                            downvote.FontSize = 20;
+                            downvote.Margin = new Thickness(5, 75, 0, 0);
+                            downvote.TextWrapping = TextWrapping.Wrap;
+
+                            gridCollection[objectIndex] = commentsGrid;
+                            commentsGrid.Children.Add(txt);
+                            commentsGrid.Children.Add(totalVotes);
+                            commentsGrid.Children.Add(upvote);
+                            commentsGrid.Children.Add(downvote);
+
+                            ContentPanel.Children.Add(commentsGrid);
+
+                            verticalMargin = verticalMargin + 115;
                         });
                         objectIndex++;
                 }

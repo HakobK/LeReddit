@@ -16,7 +16,7 @@
     <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid x:Name="LayoutRoot" Background="Black" Grid.Row="1" Margin="10,0">
         <Button x:Name="goSubreddit" Content="Go&#xA;" HorizontalAlignment="Left" Margin="0,427,0,0" Click="Button_Click" Height="66" VerticalAlignment="Top" BorderThickness="3,0" Background="#FF615F5F"/>
-        <TextBox x:Name="subredditTxt" HorizontalAlignment="Left" Height="72" Margin="0,350,-10,0" TextWrapping="Wrap" Text="e.g. 'microsoft'&#xA;" VerticalAlignment="Top" Width="470"/>
+        <TextBox x:Name="subredditTxt" HorizontalAlignment="Left" Height="72" Margin="0,350,-10,0" TextWrapping="Wrap" Text="e.g. 'microsoft'&#xA;" VerticalAlignment="Top" Width="470" Tap="subredditTxt_Tap"/>
         <TextBlock HorizontalAlignment="Left" Margin="14,323,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="White">
         	<Run Text="Go to "/>
         	<Run Text="Subreddit"/>
