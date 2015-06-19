@@ -26,12 +26,10 @@ namespace RedditPhone
         public int verticalMargin = 25;
         public int objectSize = 1000;
         public int objectIndex = 0;
-        public string username;
-        public string password;
+        //public string username;
+        //public string password;
         public string thumbDefault = "http://www.reddit.com/static/self_default2.png";
         public string thumb;
-        public string ifNotSet = "self";
-        public Reddit LoggedInReddit = new Reddit();
         public Grid[] gridCollection;
         public TextBlock[] tBlockCollection;
         public Image[] thumbnailCollection;
@@ -39,17 +37,13 @@ namespace RedditPhone
         public TextBlock[] upvotesCollection;
         public TextBlock[] voteUpCollection;
         public TextBlock[] voteDownCollection;
-        public string subredditStatus;
         public int postCount = 0;
         public IEnumerable<Post> pagePosts;
         public Uri currentPostUri;
-        public Post testPost;
-
 
         public SubredditContent()
         {
             InitializeComponent();
-            //abc = new PostContent();
             gridCollection = new Grid[objectSize];
             tBlockCollection = new TextBlock[objectSize];
             thumbnailCollection = new Image[objectSize];
@@ -57,7 +51,6 @@ namespace RedditPhone
             voteDownCollection = new TextBlock[objectSize];
             voteUpCollection = new TextBlock[objectSize];
 
-            rName.FontSize = 27;
             rName.TextWrapping = TextWrapping.Wrap;
             rName.Text = "Loading...";
             
@@ -70,7 +63,6 @@ namespace RedditPhone
             if (NavigationContext.QueryString.ContainsKey("subreddits"))
             {
                 string subR = NavigationContext.QueryString["subreddits"];
-                subredditStatus = subR;
                 getContentWithSubr(subR);
             }
 
@@ -78,7 +70,6 @@ namespace RedditPhone
             {
                 if (Statics.loggedIn)
                 {
-                    subredditStatus = "frontpageloggedin";
                     btnLogin.Content = "Logout";
                     await getContentFrontPageLoggedIn(authentication.authenticatedReddit); 
                 }
@@ -106,6 +97,11 @@ namespace RedditPhone
 
         //}
 
+        /// <summary>
+        /// Post upvoten. Werkt nog niet en wordt ook niet gebruikt.
+        /// </summary>
+        /// <param name="sender">Post wordt meegegeven wanneer getapt wordt op desbetreffende +</param>
+        /// <param name="e"></param>
         private async void upVotePost(object sender, System.Windows.Input.GestureEventArgs e)
         {
 
@@ -124,21 +120,36 @@ namespace RedditPhone
 
         }
 
-        private void print(object sender, System.Windows.Input.GestureEventArgs e)
+        /// <summary>
+        /// Naar de post zelf gaan. De comments. Static post wordt gezet op getapte post.
+        /// </summary>
+        /// <param name="sender">Geklikte post wordt meegegeven.</param>
+        /// <param name="e"></param>
+        private void goToComments(object sender, System.Windows.Input.GestureEventArgs e)
         {
-
-
-
                 Dispatcher.BeginInvoke(() => { 
                     Statics.tappedPost = (sender as Grid).Tag as Post;
                     NavigationService.Navigate(new Uri("/PostContent.xaml?", UriKind.Relative));
                 });
-
         }
 
+        /// <summary>
+        /// Page vullen met posts uit een 
+        /// </summary>
+        /// <param name="subR"></param>
        public async void getContentWithSubr(string subR)
        {
            Reddit reddit = new Reddit();
+
+           if(Statics.loggedIn == true)
+           {
+               reddit = authentication.authenticatedReddit;
+           }
+           else
+           {
+               reddit = new Reddit();
+           }
+
            var sReddit = await Task.Factory.StartNew(() => { return reddit.GetSubreddit(subR); });
            pagePosts = await Task.Factory.StartNew(() => { return sReddit.Posts.Take(50); });
            rName.Text = sReddit.Title;
@@ -156,27 +167,27 @@ namespace RedditPhone
 
        }
 
-       public async Task login(string user, string pass)
-       {     
-           await Task.Factory.StartNew(() =>
-           {
+       //public async Task login(string user, string pass)
+       //{     
+       //    await Task.Factory.StartNew(() =>
+       //    {
 
-               try
-               {
-                       LoggedInReddit.LogIn(username, password); 
-               }
-               catch (Exception e)
-               {
-                   Dispatcher.BeginInvoke(() =>
-                   {
-                       MessageBox.Show(e.ToString());
+       //        try
+       //        {
+       //                LoggedInReddit.LogIn(username, password); 
+       //        }
+       //        catch (Exception e)
+       //        {
+       //            Dispatcher.BeginInvoke(() =>
+       //            {
+       //                MessageBox.Show(e.ToString());
 
-                       //NavigationService.Navigate(new Uri("/MainPage.xaml?key=" + "false", UriKind.Relative));
-                   });
-               }
-           });
+       //                //NavigationService.Navigate(new Uri("/MainPage.xaml?key=" + "false", UriKind.Relative));
+       //            });
+       //        }
+       //    });
 
-       }
+       //}
 
        public async Task getContentFrontPageLoggedIn(Reddit reddit)
        {
@@ -230,35 +241,34 @@ namespace RedditPhone
 
        }
 
-       public async void getContentFrontPageNew()
-       {
-           MessageBox.Show("Getting new posts");
-           ContentPanel.Children.Clear();
-           tBlockCollection = null;
-           thumbnailCollection = null;
-           verticalMargin = 25;
-           objectSize = 25;
-           objectIndex = 0;
-           Reddit reddit = new Reddit();
-           reddit = LoggedInReddit;
-           var sReddit = await Task.Factory.StartNew(() => { return reddit.FrontPage; });
-           var posts = await Task.Factory.StartNew(() => { return sReddit.New.Take(50); });
-           //var text = await Task.Factory.StartNew(() => { return posts.Count().ToString(); });
-           rName.Text = sReddit.Title;
+       //public async void getContentFrontPageNew()
+       //{
+       //    MessageBox.Show("Getting new posts");
+       //    ContentPanel.Children.Clear();
+       //    //tBlockCollection = null;
+       //    //thumbnailCollection = null;
+       //    verticalMargin = 25;
+       //    objectSize = 25;
+       //    objectIndex = 0;
+       //    Reddit reddit = authentication.authenticatedReddit;
+       //    var sReddit = await Task.Factory.StartNew(() => { return reddit.FrontPage; });
+       //    var posts = await Task.Factory.StartNew(() => { return sReddit.New.Take(50); });
+       //    //var text = await Task.Factory.StartNew(() => { return posts.Count().ToString(); });
+       //    rName.Text = sReddit.Title;
 
-           fillPageWithPosts(posts);
+       //    fillPageWithPosts(posts);
 
-           try
-           {
-               Uri url = new Uri(sReddit.HeaderImage);
-               headerImage.Opacity = 0.45;
-               headerImage.Source = new BitmapImage(url);
-           }
-           catch (ArgumentNullException)
-           {
-           }
+       //    try
+       //    {
+       //        Uri url = new Uri(sReddit.HeaderImage);
+       //        headerImage.Opacity = 0.45;
+       //        headerImage.Source = new BitmapImage(url);
+       //    }
+       //    catch (ArgumentNullException)
+       //    {
+       //    }
 
-       }
+       //}
  
 
         public async void loadMoreItems(IEnumerable<Post> posts, int x)
@@ -318,7 +328,7 @@ namespace RedditPhone
 
                            TextBlock postTit = new TextBlock();
                            tBlockCollection[objectIndex] = postTit;
-                           postTit.Text = postTitle + " " + postCount.ToString();
+                           postTit.Text = postTitle;
                            postTit.FontSize = 14;
                            postTit.Margin = new Thickness(143, 0, 0, 0);
                            postTit.TextWrapping = TextWrapping.Wrap;
@@ -350,7 +360,7 @@ namespace RedditPhone
                            var gridPost = new Grid();
                            //Dispatcher.BeginInvoke(() => { postListComments = post.Comments; });
                            gridPost.Tag = post;
-                           gridPost.Tap += new EventHandler<GestureEventArgs>(print);
+                           gridPost.Tap += new EventHandler<GestureEventArgs>(goToComments);
                            //   gridPost.MaxHeight = 70;
 
                            gridPost.Height = 100;
@@ -439,7 +449,7 @@ namespace RedditPhone
                            img.Margin = new Thickness(43, 0, 0, 0);
                            thumbnailCollection[objectIndex] = img;
 
-                           if (thumb != ifNotSet)
+                           if (thumb != "self")
                            {
                                try
                                {
@@ -470,7 +480,7 @@ namespace RedditPhone
                            }
                            TextBlock postTit = new TextBlock();
                            tBlockCollection[objectIndex] = postTit;
-                           postTit.Text = postTitle + " " + postCount.ToString();
+                           postTit.Text = postTitle;
                            postTit.FontSize = 14;
                            postTit.Margin = new Thickness(143, 0, 0, 0);
                            postTit.TextWrapping = TextWrapping.Wrap;
@@ -500,10 +510,8 @@ namespace RedditPhone
                            downvote.TextWrapping = TextWrapping.Wrap;
 
                            var gridPost = new Grid();
-                           //Dispatcher.BeginInvoke(() => { postListComments = post.Comments; });
                            gridPost.Tag = post;
-                           gridPost.Tap += new EventHandler<GestureEventArgs>(print);
-                        //   gridPost.MaxHeight = 70;
+                           gridPost.Tap += new EventHandler<GestureEventArgs>(goToComments);
                            
                            gridPost.Height = 100;
                            gridPost.Width = 465;
@@ -536,20 +544,20 @@ namespace RedditPhone
 
 
 
-       private void newTap(object sender, GestureEventArgs e)
-       {
-           getContentFrontPageNew();
-       }
+       //private void newTap(object sender, GestureEventArgs e)
+       //{
+       //    getContentFrontPageNew();
+       //}
 
        private void Button_Click(object sender, RoutedEventArgs e)
        {
            NavigationService.Navigate(new Uri("/SideMenu2.xaml", UriKind.Relative));
        }
 
-       private void newTxt_Tap(object sender, GestureEventArgs e)
-       {
-           getContentFrontPageNew();
-       }
+       //private void newTxt_Tap(object sender, GestureEventArgs e)
+       //{
+       //    getContentFrontPageNew();
+       //}
 
        private void StackPanel_Tap(object sender, GestureEventArgs e)
        {
@@ -563,88 +571,8 @@ namespace RedditPhone
 
        private void Button_Click_2(object sender, RoutedEventArgs e)
        {
+           Dispatcher.BeginInvoke(() => { Statics.loggedIn = false; });
            NavigationService.Navigate(new Uri("/MainPage.xaml", UriKind.Relative));
        }
     }
 }
-
-//await Task.Factory.StartNew(() =>
-//{
-//    foreach (Post post in posts)
-//    {
-
-//        string postTitle = post.Title;
-//        Dispatcher.BeginInvoke(() =>
-//        {
-//            // MessageBox.Show(post.Thumbnail.ToString());
-//            thumb = post.Thumbnail.ToString();
-//            var img = new Image();
-//            img.Height = 80;
-//            img.Width = 80;
-//            img.Margin = new Thickness(10, 0, 0, 0);
-//            thumbnailCollection[objectIndex] = img;
-
-//            if (thumb != ifNotSet)
-//            {
-//                try
-//                {
-//                    Uri url3 = new Uri(thumb);
-//                    img.Source = new BitmapImage(url3);
-//                    img.HorizontalAlignment = HorizontalAlignment.Left;
-//                    //img.Margin = new Thickness(0, 0, 0, 0);
-//                }
-
-//                catch (Exception)
-//                {
-//                    Uri url3 = new Uri(thumbDefault);
-//                    img.Source = new BitmapImage(url3);
-//                    img.HorizontalAlignment = HorizontalAlignment.Left;
-//                    img.VerticalAlignment = VerticalAlignment.Bottom;
-//                    img.MaxHeight = 70;
-//                    img.MaxWidth = 100;
-//                    // img.Margin = new Thickness(0, 0, 0, 0);
-//                }
-//            }
-
-//            else
-//            {
-//                Uri url3 = new Uri(thumbDefault);
-//                img.Source = new BitmapImage(url3);
-//                img.HorizontalAlignment = HorizontalAlignment.Left;
-//                // img.Margin = new Thickness(0, 0, 0, 0);
-//            }
-//            TextBlock txt = new TextBlock();
-//            tBlockCollection[objectIndex] = txt;
-//            txt.Text = postTitle;
-//            txt.FontSize = 14;
-
-//            txt.Margin = new Thickness(95, 0, 0, 0);
-//            txt.TextWrapping = TextWrapping.Wrap;
-//            //  txt.Margin = new Thickness(60,0,0,0);
-
-//            var panel1 = new Grid();
-//            //Dispatcher.BeginInvoke(() => { postListComments = post.Comments; });
-//            panel1.Tap += new EventHandler<GestureEventArgs>(print);
-//            panel1.MaxHeight = 70;
-//            panel1.Height = 80;
-//            panel1.Width = 465;
-//            panel1.MaxWidth = 465;
-//            panel1.VerticalAlignment = VerticalAlignment.Top;
-//            panel1.Margin = new Thickness(0, verticalMargin, 0, 0);
-//            SolidColorBrush myBrush = new SolidColorBrush(Color.FromArgb(255, 35, 35, 35));
-//            panel1.Background = myBrush;
-
-//            gridCollection[objectIndex] = panel1;
-//            panel1.Children.Add(txt);
-//            panel1.Children.Add(img);
-
-//            ContentPanel.Children.Add(panel1);
-
-//            verticalMargin = verticalMargin + 90;
-
-//        });
-
-//        objectIndex++;
-
-//    }
-//});

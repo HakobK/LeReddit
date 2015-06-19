@@ -23,13 +23,13 @@
 
         <!--TitlePanel contains the name of the application and page title-->
         <StackPanel Grid.Row="0" Margin="6,34,6,625" Grid.RowSpan="2" Tap="StackPanel_Tap">
-            <TextBlock x:Name="rName" Text="reddit" Margin="9,15,0,0" Style="{StaticResource PhoneTextTitle1Style}" Height="106" VerticalAlignment="Bottom"/>
+            <TextBlock x:Name="rName" Text="reddit" Margin="9,15,0,0" Style="{StaticResource PhoneTextTitle1Style}" Height="106" VerticalAlignment="Bottom" FontSize="32"/>
 
         </StackPanel>
 
 
         <!--ContentPanel - place additional content here-->
-        <ScrollViewer Height="595" VerticalAlignment="Top" HorizontalAlignment="Right" Width="480" Grid.Row="1" Margin="0,116,0,0">
+        <ScrollViewer Height="623" VerticalAlignment="Top" HorizontalAlignment="Right" Width="480" Grid.Row="1" Margin="0,88,0,-3">
             <Grid x:Name="ContentPanel" Grid.Row="1" Margin="10,0,14,0" Height="1200">
                 <!--<Grid.ColumnDefinitions>
                     <ColumnDefinition Width="23*"/>
@@ -41,12 +41,6 @@
             </Grid>
         </ScrollViewer>
         <Button Content="Menu" HorizontalAlignment="Left" Margin="128,-10,0,0" VerticalAlignment="Top" Width="122" Click="Button_Click" BorderThickness="0,2" Background="#FF615F5F"/>
-
-        <Grid HorizontalAlignment="Left" Height="45" Margin="6,71,0,0" Grid.Row="1" VerticalAlignment="Top" Width="466" Background="Black">
-            <TextBlock x:Name="hottTxt" HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="HOT" VerticalAlignment="Top"/>
-            <TextBlock x:Name="newTxt" HorizontalAlignment="Left" Margin="70,10,0,0" TextWrapping="Wrap" Text="NEW" VerticalAlignment="Top" Tap="newTxt_Tap"/>
-            <TextBlock HorizontalAlignment="Left" Margin="130,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="25" Width="99" Text="SUBSCRIBE"/>
-        </Grid>
         <Button Content="Load Items" HorizontalAlignment="Left" VerticalAlignment="Top" Click="Button_Click_1" BorderThickness="0,2" Margin="0,-10,0,0" Foreground="White" Background="#FF615F5F" Width="158"/>
         <Button x:Name="btnLogin" Content="Login" HorizontalAlignment="Left" Margin="226,-10,0,0" VerticalAlignment="Top" BorderThickness="0,2" Background="#FF615F5F" Width="124" Click="Button_Click_2"/>
         <Button Content="Refresh" HorizontalAlignment="Left" Margin="318,-10,0,0" VerticalAlignment="Top" BorderThickness="0,2,2,2" Background="#FF615F5F" Width="162"/>
