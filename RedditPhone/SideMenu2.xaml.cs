@@ -17,6 +17,7 @@ namespace RedditPhone
 {
     public partial class SideMenu2 : PhoneApplicationPage
     {
+        // Constructor; Mainpage to check Authentication; yMargin to align everything underneath eachother.
         MainPage authentication = new MainPage();
         public int logCheck;
         public TextBlock[] SubscribedSubreddits;
@@ -31,6 +32,10 @@ namespace RedditPhone
             SubscribedSubreddits = new TextBlock[SubSubSize];
         }
 
+        /// <summary>
+        /// Method activates when this class is Navigated to.
+        /// </summary>
+        /// <param name="e"></param>
         protected async override void OnNavigatedTo(NavigationEventArgs e)
         {
            // logCheck = authentication.loggedIn;
@@ -51,19 +56,16 @@ namespace RedditPhone
                 await disableButtons();
                 await filloutthings();
             }
-
             else 
             { 
                 logCheck = 0; 
                 await disableButtons(); 
             }
-
-
-            
         }
 
         /// <summary>
-        /// Button links to SubredditContent class
+        /// Button links to SubredditContent class.
+        /// Text field filled in as an example.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -83,13 +85,19 @@ namespace RedditPhone
                 NavigationService.Navigate(new Uri("/SubredditContent.xaml?subreddits=" + subredditTxt.Text, UriKind.Relative));
             }
         }
+
+        /// <summary>
+        /// Method to navigate to SubredditContent
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         public void goToSub(object sender, System.Windows.Input.GestureEventArgs e)
         {
             NavigationService.Navigate(new Uri("/SubredditContent.xaml?subreddits=" + (sender as TextBlock).Tag as string, UriKind.Relative));
         }
 
         /// <summary>
-        /// Button links to UserPage class
+        /// Button to navigate UserPage class
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -99,12 +107,17 @@ namespace RedditPhone
             NavigationService.Navigate(new Uri("/UserPage.xaml?", UriKind.Relative));
         }
 
+        /// <summary>
+        /// Method to show the Subreddit a user is subscribed to, only shows when user is logged in.
+        /// </summary>
+        /// <returns></returns>
         public async Task filloutthings()
         {
             await Task.Factory.StartNew(() =>
             {
                 //try
                 //{
+
                     subscribedSubs = authentication.authenticatedReddit.User.SubscribedSubreddits;
                     foreach (Subreddit s in subscribedSubs)
                     {
@@ -145,7 +158,11 @@ namespace RedditPhone
         {
             NavigationService.Navigate(new Uri("/MainPage.xaml?", UriKind.Relative));
         }
-
+        /// <summary>
+        /// Method to change and disable buttons when the user has logged in.
+        /// logCheck 1 means user is logged in.
+        /// </summary>
+        /// <returns></returns>
         private async Task disableButtons()
         {
             await Task.Factory.StartNew(() =>
@@ -196,6 +213,11 @@ namespace RedditPhone
             });
         }
 
+        /// <summary>
+        /// Method to log out the user. Current bug: User logs out, button does not change into "Log In"
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void LogOut_Click(object sender, RoutedEventArgs e)
         {
             authentication.authenticatedReddit = new Reddit();
@@ -203,11 +225,21 @@ namespace RedditPhone
             NavigationService.Navigate(new Uri("/SubredditContent.xaml?", UriKind.Relative));
         }
 
+        /// <summary>
+        ///  Method to nagivate to the SubredditContent
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void goToHomepage_Click(object sender, RoutedEventArgs e)
         {
             NavigationService.Navigate(new Uri("/SubredditContent.xaml?", UriKind.Relative));
         }
 
+        /// <summary>
+        /// Method that handles a click action when a user clicks/touches a Subscribed Subreddit in the menu, to go to that Subreddit.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void subredditTxt_Tap(object sender, GestureEventArgs e)
         {
             subredditTxt.Text = "";
