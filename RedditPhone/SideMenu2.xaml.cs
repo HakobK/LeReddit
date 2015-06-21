@@ -13,8 +13,12 @@ using RedditSharpPCL;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
+
 namespace RedditPhone
 {
+    /// <summary>
+    /// The class for the Sidemenu of the App.
+    /// </summary>
     public partial class SideMenu2 : PhoneApplicationPage
     {
         // Constructor; Mainpage to check Authentication; yMargin to align everything underneath eachother.

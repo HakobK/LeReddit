@@ -14,8 +14,12 @@ using System.Windows.Media;
 
 namespace RedditPhone
 {
+    /// <summary>
+    /// Class to handle the Inbox and PrivateMessaging of the App.
+    /// </summary>
     public partial class InboxPMs : PhoneApplicationPage
     {
+        // Constructor; Mainpage to check for authentication.
         MainPage authentication = new MainPage();
 
         public TextBlock[] Messages;
@@ -31,11 +35,20 @@ namespace RedditPhone
             InitializeComponent();
         }
 
+        /// <summary>
+        /// Method to navigate to the SideMenu. Says 0 references, actually works...
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             NavigationService.Navigate(new Uri("/SideMenu2.xaml?", UriKind.Relative));
         }
 
+        /// <summary>
+        /// Method called onto when navigated to this class.
+        /// </summary>
+        /// <param name="e"></param>
         protected async override void OnNavigatedTo(NavigationEventArgs e)
         {
             var fullname = await Task.Factory.StartNew(() => { return authentication.authenticatedReddit.User.FullName; });
@@ -51,6 +64,10 @@ namespace RedditPhone
 
         }
 
+        /// <summary>
+        /// Method to get all the send and received Private Messages when Logged in/Authenticated.
+        /// </summary>
+        /// <returns></returns>
         public async Task getInbox()    
         {
             await Task.Factory.StartNew(() =>
