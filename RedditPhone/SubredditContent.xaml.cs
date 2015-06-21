@@ -26,8 +26,7 @@ namespace RedditPhone
         public int verticalMargin = 25;
         public int objectSize = 1000;
         public int objectIndex = 0;
-        //public string username;
-        //public string password;
+
         public string thumbDefault = "http://www.reddit.com/static/self_default2.png";
         public string thumb;
         public Grid[] gridCollection;
