@@ -23,13 +23,11 @@ namespace RedditPhone
     {
         // Constructor; Mainpage to check Authentication; yMargin to align everything underneath eachother.
         MainPage authentication = new MainPage();
-        public int logCheck;
-        public TextBlock[] SubscribedSubreddits;
-        public IEnumerable<Subreddit> subscribedSubs;
-        public int SubSubSize = 100;
-        public int SubSubIndex = 1;
-        public int yMargin = 0;
-        public string key;
+        private TextBlock[] SubscribedSubreddits;
+        private IEnumerable<Subreddit> subscribedSubs;
+        private int SubSubSize = 100;
+        private int SubSubIndex = 1;
+        private int yMargin = 0;
         public SideMenu2()
         {
             InitializeComponent();
@@ -42,27 +40,14 @@ namespace RedditPhone
         /// <param name="e"></param>
         protected async override void OnNavigatedTo(NavigationEventArgs e)
         {
-           // logCheck = authentication.loggedIn;
-         //   await disableButtons();
-
-          //  if (NavigationContext.QueryString.ContainsKey("isloggedin"))
-          //  {
-          //      //namding.Visibility = System.Windows.Visibility.Visible;
-          //      key = NavigationContext.QueryString["isloggedin"];
-          //      logCheck = Convert.ToInt32(key);
-          //      await disableButtons();
-          ////      await filloutthings();
-          //  }
 
             if (Statics.loggedIn)
             {
-                logCheck = 1;
                 await disableButtons();
                 await filloutthings();
             }
             else 
             { 
-                logCheck = 0; 
                 await disableButtons(); 
             }
         }
@@ -75,7 +60,6 @@ namespace RedditPhone
         /// <param name="e"></param>
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-
             if (subredditTxt.Text == "" || subredditTxt.Text == "e.g. 'microsoft'")
             {
                 Dispatcher.BeginInvoke(() =>
@@ -91,17 +75,17 @@ namespace RedditPhone
         }
 
         /// <summary>
-        /// Method to navigate to SubredditContent
+        /// Method to navigate to SubredditContent with clicked subscribed subreddit when logged in.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        public void goToSub(object sender, System.Windows.Input.GestureEventArgs e)
+        private void goToSub(object sender, System.Windows.Input.GestureEventArgs e)
         {
             NavigationService.Navigate(new Uri("/SubredditContent.xaml?subreddits=" + (sender as TextBlock).Tag as string, UriKind.Relative));
         }
 
         /// <summary>
-        /// Button to navigate UserPage class
+        /// Button to navigate User profile page
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -112,16 +96,13 @@ namespace RedditPhone
         }
 
         /// <summary>
-        /// Method to show the Subreddit a user is subscribed to, only shows when user is logged in.
+        /// Method to show the Subreddits a user is subscribed to, only shows when user is logged in.
         /// </summary>
         /// <returns></returns>
-        public async Task filloutthings()
+        private async Task filloutthings()
         {
             await Task.Factory.StartNew(() =>
             {
-                //try
-                //{
-
                     subscribedSubs = authentication.authenticatedReddit.User.SubscribedSubreddits;
                     foreach (Subreddit s in subscribedSubs)
                     {
@@ -138,15 +119,8 @@ namespace RedditPhone
                             SubSubIndex++;
                             yMargin = yMargin + 25;
                             namding.Visibility = System.Windows.Visibility.Visible;
-
                         });
                     }
-                //}
-                
-                //catch(Exception exc)
-                //{
-                //    MessageBox.Show("Failed" + exc);
-                //}
             });
         }
 
@@ -162,8 +136,9 @@ namespace RedditPhone
         {
             NavigationService.Navigate(new Uri("/MainPage.xaml?", UriKind.Relative));
         }
+
         /// <summary>
-        /// Method to change and disable buttons when the user has logged in.
+        /// Method to change and disable buttons based on if the the user has logged in or not.
         /// logCheck 1 means user is logged in.
         /// </summary>
         /// <returns></returns>
@@ -174,20 +149,16 @@ namespace RedditPhone
                 try
                 {
                     //LoggedInReddit.LogIn(user, pass);
-                    if (logCheck == 1)
+                    if (Statics.loggedIn)
                     {
                         Dispatcher.BeginInvoke(() =>
                         {
-                            //LogIn.Content = "Log Out";
-                            //LogIn.Opacity = 0;
                             LogIn.IsEnabled = false;
                             LogIn.Visibility = Visibility.Collapsed;
-                           // UserProfile.Opacity = 100;
                             UserProfile.IsEnabled = true;
                             UserProfile.Visibility = Visibility.Visible;
                             LogOut.Visibility = Visibility.Visible;
                             LogOut.IsEnabled = true;
-                           // LogOut.Opacity = 100;
                         }
                         );
                     }
@@ -195,18 +166,14 @@ namespace RedditPhone
                     {
                         Dispatcher.BeginInvoke(() =>
                         {
-                          //  LogIn.Opacity = 100;
                             LogIn.IsEnabled = true;
                             LogIn.Visibility = Visibility.Visible;
-                         //   UserProfile.Opacity = 0;
                             UserProfile.IsEnabled = false;
                             UserProfile.Visibility = Visibility.Collapsed;
                             LogOut.Visibility = Visibility.Collapsed;
                             LogOut.IsEnabled = false;
-                       //     LogOut.Opacity = 0;
                         }
                         );
-
                     }
                 }
                 catch(Exception exc)
@@ -240,7 +207,7 @@ namespace RedditPhone
         }
 
         /// <summary>
-        /// Method that handles a click action when a user clicks/touches a Subscribed Subreddit in the menu, to go to that Subreddit.
+        /// 
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>

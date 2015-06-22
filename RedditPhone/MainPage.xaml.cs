@@ -17,6 +17,7 @@ namespace RedditPhone
 
     public partial class MainPage : PhoneApplicationPage
     {
+        //This object will be used everywhere if logged in.
         public Reddit authenticatedReddit;
 
         // Constructor
@@ -29,44 +30,51 @@ namespace RedditPhone
             //BuildLocalizedApplicationBar();
         }
 
-
+        /// <summary>
+        /// If logged in already will message you.
+        /// </summary>
+        /// <param name="e"></param>
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
 
-            if (NavigationContext.QueryString.ContainsKey("key"))
+            if (Statics.loggedIn)
             {
-                string message = NavigationContext.QueryString["key"];
-                if(message == "false")
-                {
-                    MessageBox.Show("Invalid login");
-                }
+                Dispatcher.BeginInvoke(()=>MessageBox.Show("Already logged in,"));
             }
         }
 
+        /// <summary>
+        /// Do the login method and pass the filled in information.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private async void lgnReddit_Click(object sender, RoutedEventArgs e)
         {
-            await login2(txtUsername.Text, txtPassword.Password);
+            await login(txtUsername.Text, txtPassword.Password);
         }
 
-        public async void dostuff()
+        private async void messageLoggedIn()
         {
             await Task.Factory.StartNew(() =>
                 {
                     Dispatcher.BeginInvoke(()=> MessageBox.Show("Logged in Succesfully!"));
                 });
         }
-        public async Task login2(string user, string pass)
+
+        /// <summary>
+        /// Method used to login. Sets the authenticatedreddit Reddit object to the logged in reddit.
+        /// </summary>
+        /// <param name="user"></param>
+        /// <param name="pass"></param>
+        /// <returns></returns>
+        private async Task login(string user, string pass)
         {
-
-
             await Task.Factory.StartNew(() =>
             {
-                //LoggedInReddit.LogIn(user, pass);
-
                 try
                 {
                     authenticatedReddit.LogIn(user,pass);
-                    dostuff();
+                    messageLoggedIn();
                     Statics.loggedIn = true;
                     Dispatcher.BeginInvoke(() =>
                     {
@@ -84,21 +92,21 @@ namespace RedditPhone
 
         }
 
-    
-
+        /// <summary>
+        /// Go to menu.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            if (Statics.loggedIn)
-            {
                 NavigationService.Navigate(new Uri("/SideMenu2.xaml?", UriKind.Relative));
-            }
-            else
-            {
-                NavigationService.Navigate(new Uri("/SideMenu2.xaml?", UriKind.Relative));
-            }
-
         }
 
+        /// <summary>
+        /// Go to register account.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void TextBlock_Tap(object sender, System.Windows.Input.GestureEventArgs e)
         {
             NavigationService.Navigate(new Uri("/RegisterAccount.xaml?", UriKind.Relative));

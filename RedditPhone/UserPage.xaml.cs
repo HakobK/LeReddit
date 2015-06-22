@@ -15,12 +15,12 @@ namespace RedditPhone
 {
     public partial class UserPage : PhoneApplicationPage
     {
-        MainPage authentication = new MainPage();  
-        public int CommentIndex = 1;
-        public int postIndex = 1;
-        public IEnumerable<Comment> comments;
-        public IEnumerable<Post> posts;
-        int navigated = 0;
+        MainPage authentication = new MainPage();
+        private int CommentIndex = 1;
+        private int postIndex = 1;
+        private IEnumerable<Comment> comments;
+        private IEnumerable<Post> posts;
+        private int navigated = 0;
 
         public UserPage()
         {
@@ -60,7 +60,7 @@ namespace RedditPhone
         /// Method to get all the comments from the user
         /// </summary>
         /// <returns></returns>
-        public async Task getComments()
+        private async Task getComments()
         {            
             await Task.Factory.StartNew(() =>
             {            
@@ -86,10 +86,10 @@ namespace RedditPhone
         }
 
         /// <summary>
-        /// Method to get al the posts from the user with amount of upvotes
+        /// Method to get all the posts from the user with amount of upvotes
         /// </summary>
         /// <returns></returns>
-       public async Task getPosts()
+        private async Task getPosts()
        {
            await Task.Factory.StartNew(() =>
             {
@@ -123,6 +123,12 @@ namespace RedditPhone
         {
             (Application.Current.RootVisual as PhoneApplicationFrame).Navigate(new Uri("/InboxPMs.xaml?", UriKind.Relative));
         }
+
+        /// <summary>
+        /// Button to navigate to menu
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             NavigationService.Navigate(new Uri("/SideMenu2.xaml", UriKind.Relative));

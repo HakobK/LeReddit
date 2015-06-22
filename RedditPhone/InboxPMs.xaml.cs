@@ -22,12 +22,12 @@ namespace RedditPhone
         // Constructor; Mainpage to check for authentication.
         MainPage authentication = new MainPage();
 
-        public TextBlock[] Messages;
-        public int MessageSize = 100;
-        public int MessageIndex = 1;
-        public string s;
-        public int yMargin = 40;
-        public Grid[] gridCollection;
+        private TextBlock[] Messages;
+        private int MessageSize = 100;
+        private int MessageIndex = 1;
+        private string s;
+        private int yMargin = 40;
+        private Grid[] gridCollection;
 
         public InboxPMs()
         {
@@ -53,13 +53,10 @@ namespace RedditPhone
         {
             var fullname = await Task.Factory.StartNew(() => { return authentication.authenticatedReddit.User.FullName; });
             userNamePM.Text = "Name: " + fullname;
-
             var Inbox = await Task.Factory.StartNew(() => { return authentication.authenticatedReddit.User.Inbox; });
-            
             var privateMessages = await Task.Factory.StartNew(() => { return authentication.authenticatedReddit.User.PrivateMessages; });
             var privateMessage = await Task.Factory.StartNew(() => { return privateMessages.Count().ToString(); });
             countMessages.Text = "Messages: " + privateMessage.ToString();
-             
             await getInbox();
 
         }
@@ -68,7 +65,7 @@ namespace RedditPhone
         /// Method to get all the send and received Private Messages when Logged in/Authenticated.
         /// </summary>
         /// <returns></returns>
-        public async Task getInbox()    
+        private async Task getInbox()    
         {
             await Task.Factory.StartNew(() =>
             {

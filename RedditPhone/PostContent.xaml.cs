@@ -16,22 +16,14 @@ namespace RedditPhone
 {
     public partial class PostContent : PhoneApplicationPage
     {
-        SubredditContent subredditPage = new SubredditContent();
-        public IEnumerable<Comment> comments;
-        public Post r;
-        public IEnumerable<Post> test;
-        public int verticalMargin = 25;
-        public int objectSize = 1000;
-        public int objectIndex = 0;
-        public Grid[] gridCollection;
-        public TextBlock[] tBlockCollection;
-        public string opgeteld = "0";
-        public TextBlock[] upvotesCollection;
-        public TextBlock[] voteUpCollection;
-        public TextBlock[] voteDownCollection;
-
-        
- 
+        private int verticalMargin = 25;
+        private int objectSize = 1000;
+        private int objectIndex = 0;
+        private Grid[] gridCollection;
+        private TextBlock[] tBlockCollection;
+        private TextBlock[] upvotesCollection;
+        private TextBlock[] voteUpCollection;
+        private TextBlock[] voteDownCollection;
 
         public PostContent()
         {
@@ -42,93 +34,27 @@ namespace RedditPhone
             InitializeComponent();
         }
 
+        /// <summary>
+        /// When navigated to this page does the method fillPageWithComments while giving the tapped post on subredditcontent
+        /// </summary>
+        /// <param name="e"></param>
         protected async override void OnNavigatedTo(NavigationEventArgs e)
         {
-
-        //    //Reddit reddit = new Reddit();
-
-        //    //var sReddit = await Task.Factory.StartNew(() => { return reddit.FrontPage; });
-        //    //test = await Task.Factory.StartNew(() => { return sReddit.Posts.Take(1); });
-
-
-
             await Task.Factory.StartNew(() =>
             {
-
-
-                //foreach (Comment com in Statics.tappedPost.Comments)
-                //{
                     Dispatcher.BeginInvoke(() =>
                    {
                        fillPageWithComments(Statics.tappedPost);
                    });
-                //}
-
             });
-
-
-        //    //postNameText.Text = r.Title;
-        //    //comments = await Task.Factory.StartNew(() => { return r.Comments.Take(1); });
-        //    //doShit(test);
-        //    //await Task.Factory.StartNew(() => { fillPageWithComments(comments); });
-            
-            
-
-        }
-
-        public async void doShit(IEnumerable<Post> posts)
-        {
-                  await Task.Factory.StartNew(() => { 
-                  foreach (Post s in posts)
-                  {
-                      Dispatcher.BeginInvoke(() =>
-                      {
-                          r = s;
-                      });
-                  }
-
-                  });
-
-                  comments = await Task.Factory.StartNew(() => { return r.Comments.Take(50);
-                  });
         }
 
 
-        public void submitComment(Post post, string message)
-        {
-
-        }
-
-        public void submitCommentComment(Post post, Comment comment, string message)
-        {
-
-        }
-
-        public void voteComment(Post post, Comment comment, string upOrDown)
-        {
-
-        }
-
-        //private void Button_Click(object sender, RoutedEventArgs e)
-        //{
-        //    doShit(test);
-        //}
-
-        //public async void doShitWithComments(IEnumerable<Comment> comments)
-        //{
-        //    await Task.Factory.StartNew(() =>
-        //    {
-        //        foreach (Comment com in comments)
-        //        {
-        //            Dispatcher.BeginInvoke(() =>
-        //            {
-        //                opgeteld = opgeteld + "+" + com.Author;
-        //            });
-        //        }
-        //    });
-        //}
-
-        public async void fillPageWithComments(Post post)
+        /// <summary>
+        /// Fills page with comments with given post. Works the same way as filling screen with posts.
+        /// </summary>
+        /// <param name="post"></param>
+        private async void fillPageWithComments(Post post)
         {
             await Task.Factory.StartNew(() =>
             {
@@ -140,28 +66,17 @@ namespace RedditPhone
                 postSubreddit.Text = "/r/" + post.Subreddit;
                 postAuthor.Text = "Author: " + post.AuthorName;
                 });
-
-
                 foreach (Comment com in post.Comments)
                 {
-
-
                     string commentBody = com.Body;
                     string commentAuthor = com.Author;
-                    
-
-                    
-
                         Dispatcher.BeginInvoke(() =>
                         {
-                         
                             TextBlock txt = new TextBlock();
                             txt.Text = commentAuthor + ": " + commentBody;
                             txt.FontSize = 14;
-
                             txt.Margin = new Thickness(30, 0, 0, 0);
                             txt.TextWrapping = TextWrapping.Wrap;
-                           
 
                             var commentsGrid = new Grid();
                             
@@ -182,7 +97,7 @@ namespace RedditPhone
                             TextBlock upvote = new TextBlock();
                             voteUpCollection[objectIndex] = upvote;
                             //upvote.Tap += new EventHandler<GestureEventArgs>(upVotePost);
-                            upvote.Tag = post;
+                            upvote.Tag = com;
                             upvote.Text = "+";
                             upvote.FontSize = 20;
                             upvote.Margin = new Thickness(5, 5, 0, 0);
@@ -191,6 +106,7 @@ namespace RedditPhone
                             TextBlock downvote = new TextBlock();
                             voteUpCollection[objectIndex] = downvote;
                             downvote.Text = "-";
+                            downvote.Tag = com;
                             downvote.FontSize = 20;
                             downvote.Margin = new Thickness(5, 75, 0, 0);
                             downvote.TextWrapping = TextWrapping.Wrap;
@@ -210,31 +126,22 @@ namespace RedditPhone
             });
         }
 
-        private async void Button_Click(object sender, RoutedEventArgs e)
-        {
-            await Task.Factory.StartNew(() =>
-            {
-
-                //    //Post r = new Post();
-
-                //    foreach (Post s in test)
-                //    {
-                Dispatcher.BeginInvoke(() =>
-                {
-                    MessageBox.Show(Statics.tappedPost.CommentCount.ToString());
-                    //            r = s;
-                });
-                //    }
-
-            });
-        }
-
+        /// <summary>
+        /// button to navigate back to subredditcontent
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Button_Click_Homepage(object sender, RoutedEventArgs e)
         {
             NavigationService.Navigate(new Uri("/SubredditContent.xaml?", UriKind.Relative));
 
         }
 
+        /// <summary>
+        /// button to navigate to menu
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Button_Click_2(object sender, RoutedEventArgs e)
         {
             NavigationService.Navigate(new Uri("/SideMenu2.xaml?", UriKind.Relative));

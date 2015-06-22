@@ -23,9 +23,15 @@ namespace RedditPhone
             InitializeComponent();
         }
 
-        public async Task register(string user, string pass, string mail)
+        /// <summary>
+        /// Method to register, does not work yet.
+        /// </summary>
+        /// <param name="user"></param>
+        /// <param name="pass"></param>
+        /// <param name="mail"></param>
+        /// <returns></returns>
+        private async Task register(string user, string pass, string mail)
         {
-
 
             await Task.Factory.StartNew(() =>
             {
