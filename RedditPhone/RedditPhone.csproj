@@ -218,7 +218,7 @@
     </Reference>
     <Reference Include="RedditSharpPCL, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\Dropbox\H &amp; K &amp; W &amp; R &amp; T\RedditSharpPCL.dll</HintPath>
+      <HintPath>Bin\Debug\RedditSharpPCL.dll</HintPath>
     </Reference>
     <Reference Include="System.Net.Http">
       <HintPath>..\packages\Microsoft.Net.Http.2.2.29\lib\sl4-windowsphone71\System.Net.Http.dll</HintPath>
